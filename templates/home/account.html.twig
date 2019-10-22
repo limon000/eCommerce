@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommerceController!{% endblock %}
+
+{% block body %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+
+    {% for client in clients %}
+    <hr>
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-sm-10"><h1>{{ client.fullname }}</h1></div>
+
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-3"><!--left col-->
+
+
+                <div class="text-center">
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                    <h6>Upload a different photo...</h6>
+                    <input type="file" class="text-center center-block file-upload">
+                </div></hr><br>
+
+
+
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Articles</strong></span> 125</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> 13</li>
+                </ul>
+
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+                    <li><a data-toggle="tab" href="#messages">Login Information</a></li>
+                </ul>
+
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <hr>
+                        <form class="form" action="{{ path('profile_edit', {id : client.id}) }}">
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="fullname"><h4>Fullname</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.fullname }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="birthdate"><h4>Birth Date</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.birthdate|date("d/m/Y") }}" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="address1"><h4>Address 1</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.address1 }}" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <label for="address2"><h4>Address 2</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.address2 }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="city"><h4>City</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.city }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="state"><h4>State</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.state }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="postcode"><h4>Post code</h4></label>
+                                    <input type="text" class="form-control" value="{{ client.postcode }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <br>
+                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
+                                </div>
+                            </div>
+                        </form>
+{% endfor %}
+                        <hr>
+
+                    </div><!--/tab-pane-->
+                    <div class="tab-pane" id="messages">
+
+                        <h2></h2>
+
+                        <hr>
+                        <form class="form" action="{{ path('profile_edit_login' , {id : app.user.id}) }}">
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="email"><h4>Email</h4></label>
+                                    <input type="email" class="form-control" value="{{ app.user.email }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="password"><h4>Password</h4></label>
+                                    <input type="text" class="form-control" value="•••••" disabled>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <br>
+                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div><!--/tab-pane-->
+
+                </div><!--/tab-pane-->
+            </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}
