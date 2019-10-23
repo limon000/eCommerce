@@ -2,16 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\RegistrationType;
 use App\Repository\ClientRepository;
-use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class HomeController extends AbstractController
 {
@@ -25,5 +19,20 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/account/{id}", name="account")
+     * @IsGranted("ROLE_USER")
+     */
+    public function account(ClientRepository $clientRepo,$id)
+    {
+        $clients = $clientRepo->findBy(
+        ['id' => $id]
+        );
 
+
+        return $this->render('home/account.html.twig',[
+            'clients' => $clients,
+        ]);
+    }
 }
+

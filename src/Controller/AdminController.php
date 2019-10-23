@@ -6,40 +6,41 @@ use App\Entity\Client;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use App\Security\LoginFormAuthenticator;
-use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
+/**
+ * @IsGranted("ROLE_SUPER_ADMIN")
+ *  @Route("/admin")
+ */
 class AdminController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin", name="admin")
+     * @Route("/user", name="user_index", methods={"GET"})
      */
-    public function admin()
+    public function index(UserRepository $userRepository): Response
     {
-
-        return $this->render('admin/home_admin.html.twig');
+        return $this->render('admin/user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
     }
 
     /**
-     * @IsGranted("ROLE_SUPER_ADMIN")
-     * @Route("/admin/users", name="admin_users")
+     * @Route("/user/new", name="user_new", methods={"GET","POST"})
      */
-    public function create(GuardAuthenticatorHandler $guardHandler,Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder,LoginFormAuthenticator $authenticator)
+    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $client = new Client();
         $user = new User();
-        $form = $this->createForm(UserType::class,$user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $client->setFullname("null");
             $client->setBirthdate(new \DateTime('now'));
             $client->setAddress1("null");
@@ -48,28 +49,73 @@ class AdminController extends AbstractController
             $client->setState("null");
             $client->setPostcode("null");
             $client->setUser($user);
+
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('password')->getData()
                 )
             );
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($user);
-            $manager->persist($client);
-            $manager->flush();
-
-            return $this->redirectToRoute('admin_users');
+            return $this->redirectToRoute('user_index');
         }
 
-
-
-            return $this->render('admin/admin.html.twig' , [
-                'adminForm' => $form->createView(),
-            ]);
+        return $this->render('admin/user/new.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
+    /**
+     * @Route("/user/{id}", name="user_show", methods={"GET"})
+     */
+    public function show(User $user): Response
+    {
+        return $this->render('admin/user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
 
+    /**
+     * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, User $user,UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('admin/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, User $user): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('user_index');
+    }
 }
