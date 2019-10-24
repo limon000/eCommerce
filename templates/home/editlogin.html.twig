@@ -45,7 +45,15 @@
        <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <hr>
+
 {{ form_start(form) }}
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    {{ form_row(form.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
+                                </div>
+                            </div>
+
                             <div class="form-group">
 
                                 <div class="col-xs-6">

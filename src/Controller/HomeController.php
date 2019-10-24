@@ -28,15 +28,14 @@ class HomeController extends AbstractController
      */
     public function account(ClientRepository $clientRepo,$id)
     {
-
         $clients = $clientRepo->findBy(
         ['id' => $id]
         );
-
 
         return $this->render('home/account.html.twig',[
             'clients' => $clients,
         ]);
     }
+
 }
 
