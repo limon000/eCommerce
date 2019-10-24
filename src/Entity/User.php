@@ -45,9 +45,18 @@ class User implements UserInterface
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="user" , orphanRemoval=true , cascade={"persist", "remove"})
      */
     private $clients;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $loginName;
+
+
+
+
 
     public function __construct()
     {
@@ -162,4 +171,24 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getLoginName(): ?string
+    {
+        return $this->loginName;
+    }
+
+    public function setLoginName(string $loginName): self
+    {
+        $this->loginName = $loginName;
+
+        return $this;
+    }
+
 }

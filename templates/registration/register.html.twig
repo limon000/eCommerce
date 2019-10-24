@@ -13,6 +13,11 @@
                 <div style="width: 200%;">
                     <div class="form-group">
                         <div class="col-sm-4">
+                            {{ form_row(registrationForm.username,{'label' : 'Username', 'attr' : {'placeholder' : 'Your username ....','class' : 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4">
                             {{ form_row(registrationForm.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
                         </div>
                     </div>

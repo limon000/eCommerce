@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <link rel="stylesheet" href="/css/simple-sidebar.css">
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     {% endblock %}
@@ -19,7 +18,7 @@
         <div class="list-group list-group-flush">
             <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
             <a href="{{ path('user_index') }}" class="list-group-item list-group-item-action bg-light">Users</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Articles</a>
+            <a href="{{ path('article_index') }}" class="list-group-item list-group-item-action bg-light">Articles</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
         </div>
