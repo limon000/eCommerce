@@ -6,15 +6,12 @@ use App\Entity\Client;
 use App\Entity\User;
 use App\Form\ClientType;
 use App\Form\RegistrationFormType;
-use App\Repository\ClientRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -48,7 +45,7 @@ class SecurityController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/profile/{id}/edit", name="profile_edit")
      */
-    public function edit(Client $client,Request $request,EntityManagerInterface $manager,UserPasswordEncoderInterface $encoder,ClientRepository $clientRepo,$id)
+    public function edit(Client $client,Request $request,EntityManagerInterface $manager)
     {
         $form = $this->createForm(ClientType::class , $client);
 
@@ -61,14 +58,10 @@ class SecurityController extends AbstractController
             $this->addFlash('success', 'Profile Updated !');
             return $this->redirectToRoute('account');
         }
-        $client = $clientRepo->findBy(
-            ['id' => $id]
-        );
 
         return $this->render('home/profile.html.twig', [
             'form' => $form->createView(),
-            'id' => $id,
-            'clients' => $client,
+            'client' => $client,
         ]);
     }
 
@@ -76,7 +69,7 @@ class SecurityController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/profile/{id}/edit_login", name="profile_edit_login")
      */
-    public function editAccount(User $user,Request $request,EntityManagerInterface $manager,UserPasswordEncoderInterface $encoder,UserRepository $userRepo,$id)
+    public function editAccount(User $user,Request $request,EntityManagerInterface $manager)
     {
         $form = $this->createForm(RegistrationFormType::class , $user);
 
@@ -89,15 +82,11 @@ class SecurityController extends AbstractController
             $this->addFlash('success', 'Profile Updated !');
             return $this->redirectToRoute('account');
         }
-        $user = $userRepo->findBy(
-            ['id' => $id]
-        );
 
 
         return $this->render('home/editlogin.html.twig', [
             'form' => $form->createView(),
-            'id' => $id,
-            'users' => $user,
+            'user' => $user,
         ]);
     }
 

@@ -52,9 +52,10 @@ class Client
     private $postcode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="clients")
+     * @ORM\OneToOne(targetEntity="App\Entity\user", cascade={"persist", "remove"})
      */
     private $user;
+
 
     public function getId(): ?int
     {
@@ -145,15 +146,16 @@ class Client
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?user
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?user $user): self
     {
         $this->user = $user;
 
         return $this;
     }
+
 }

@@ -14,12 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @IsGranted("ROLE_SUPER_ADMIN")
+ * @IsGranted("ROLE_ADMIN")
  *  @Route("/admin")
  */
 class AdminController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
@@ -30,6 +31,7 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user/new", name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
@@ -70,6 +72,7 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
@@ -80,6 +83,7 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user,UserPasswordEncoderInterface $passwordEncoder): Response
@@ -106,6 +110,7 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response

@@ -2,6 +2,10 @@
 
 {% block title %}Hello CommerceController!{% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
 {% block body %}
     <head>
         <meta charset="utf-8">
@@ -9,7 +13,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
 
-    {% for client in clients %}
 
     <hr>
     <div class="container bootstrap snippet">
@@ -109,7 +112,6 @@
                         <hr>
 
                     </div><!--/tab-pane-->
-{% endfor %}
                     <div class="tab-pane" id="messages">
 
 

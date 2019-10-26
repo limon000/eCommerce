@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Client;
-use App\Entity\User;
-use App\Repository\ClientRepository;
-use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -26,15 +24,22 @@ class HomeController extends AbstractController
      * @Route("/account/{id}", name="account")
      * @IsGranted("ROLE_USER")
      */
-    public function account(ClientRepository $clientRepo,$id)
+    public function account(Client $client): Response
     {
-        $clients = $clientRepo->findBy(
-        ['id' => $id]
-        );
 
         return $this->render('home/account.html.twig',[
-            'clients' => $clients,
+            'client' => $client,
         ]);
+    }
+
+
+    /**
+     * @Route("/informatique", name="informatique")
+     */
+    public function informatique()
+    {
+
+        return $this->render('home/informatique.html.twig');
     }
 
 }
