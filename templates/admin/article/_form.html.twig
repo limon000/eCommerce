@@ -1,0 +1,49 @@
+{{ form_start(articleForm, {'enctype' : 'multipart/form-data'})}}
+<div class="row">
+    <div class="col-md-8 col-md-offset-1">
+        <fieldset>
+            <div class="form-group" >
+                <div class="col-sm-4">
+                    {{ form_row(articleForm.nom,{'label' : 'Article name', 'attr' : {'placeholder' : 'Article name ....','class' : 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    {{ form_row(articleForm.prix,{'label' : 'Article price', 'attr' : {'placeholder' : 'Article price ....','class' : 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    {{ form_row(articleForm.description,{'label' : 'Description', 'attr' : {'placeholder' : 'Your Description ....','class' : 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    {{ form_row(articleForm.categorie,{'label' : 'Categorie', 'attr' : {'placeholder' : ' Categorie....','class' : 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <div class="col-sm-4">
+                    {{ form_row(articleForm.image,{'label' : 'Image', 'attr' : {'class' : 'form-control-file'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <div class="col-sm-4">
+                    {{ form_row(articleForm.quantite,{'label' : 'Quantity', 'attr' : {'placeholder' : 'Your quantity ....','class' : 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-5 col-sm-offset-1">
+                    <div class="pull-right">
+                        <button class="btn">{{ button_label|default('Save') }}</button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(articleForm) }}
+        </fieldset>
+    </div>
+</div>
+
