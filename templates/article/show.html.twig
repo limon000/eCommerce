@@ -46,38 +46,34 @@
 
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
-            Product Reviews
+              {{ article.reviews | length }}
+            Article Reviews
           </div>
+            {% for review in article.reviews %}
           <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              {% if review.username == app.user.loginName %}
+              <a style="float: right;" href="{{ path('review_remove', {id : review.id}) }}" class="btn btn-danger btn-sm">
+                  <i class="fas fa-trash">X</i>
+              </a>
+             {% endif %}
+            <p>{{ review.content }}</p>
+            <small class="text-muted">Posted by {{ review.username }} on {{ review.createdAt|date('Y-m-d H:i:s') }}</small>
             <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <a href="#" class="btn btn-success">Leave a Review</a>
+              {% endfor %}
+              {{ form_start(reviews) }}
+              {{ form_row(reviews.content,  {'label' : 'Review','attr' : {'placeholder' : "Review",'class' : 'form-control'}}) }}
+              <button type="submit" class="btn btn-success">Leave a Review</button>
+              {{ form_end(reviews) }}
           </div>
+
         </div>
-        <!-- /.card -->
 
       </div>
-      <!-- /.col-lg-9 -->
 
     </div>
 
   </div>
-  <!-- /.container -->
 {% endfor %}
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-    <!-- /.container -->
-  </footer>
 
 {% endblock %}
 
