@@ -123,6 +123,7 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
 
+
         return $this->redirectToRoute('user_index');
     }
 

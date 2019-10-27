@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Client;
+use App\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,15 +34,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/informatique", name="informatique")
-     */
-    public function informatique()
-    {
-
-        return $this->render('home/informatique.html.twig');
-    }
 
 }
 

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </div>
+
+    {% if items | length > 0 %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Article</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.article.nom }}</td>
+                    <td>{{ item.article.prix }} DT</td>
+                    <td>{{ item.article.quantite }}</td>
+                    <td>{{ item.article.prix * item.quantite }} DT</td>
+                    <td>
+                        <a href="{{ path('panier_remove', {id : item.article.id}) }}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"> </i>
+
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total : </td>
+                <td>{{ total }} DT</td>
+            </tr>
+            </tfoot>
+
+        </table>
+
+{% else %}
+    <p>Surprise, c'est vide !</p>
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

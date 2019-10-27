@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @IsGranted("ROLE_ADMIN")
  * @Route("/admin")
  */
-class ArticleController extends AbstractController
+class AdminArticleController extends AbstractController
 {
     /**
      * @Route("/articles", name="article_index", methods={"GET"})
@@ -107,4 +107,7 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
+
+
+
 }
