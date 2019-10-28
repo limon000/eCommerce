@@ -9,6 +9,8 @@ use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -18,8 +20,9 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(MailerInterface $mailer,Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
+        $email = new Email();
         $client = new Client();
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -34,7 +37,14 @@ class RegistrationController extends AbstractController
             $client->setState("null");
             $client->setPostcode("null");
             $client->setUser($user);
+            $user->setClient($client);
 
+            $email->from('aymenradhouen@gmail.com')
+                  ->to($user->getEmail())
+                  ->subject("welcome")
+                  ->text("Ahla ya khra");
+
+            $mailer->send($email);
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(

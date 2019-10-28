@@ -52,7 +52,7 @@ class Client
     private $postcode;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\user", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $user;
 

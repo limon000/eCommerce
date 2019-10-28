@@ -3,6 +3,7 @@
 namespace App\Service\Panier;
 
 use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PanierService {
@@ -30,6 +31,7 @@ class PanierService {
     }
 
     public function remove(int $id) {
+
         $panier = $this->session->get('panier', []);
         if(!empty($panier[$id]))
         {
@@ -55,7 +57,7 @@ class PanierService {
         $total = 0;
         foreach ($this->getFullCart() as $item)
         {
-            $total += $item['article']->getPrix() * $item['quantite'];
+            $total += $item['article']->getPrix() * $item['article']->getQuantite();
         }
         return $total;
     }
