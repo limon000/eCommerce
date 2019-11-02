@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +40,11 @@ class RegistrationController extends AbstractController
             $client->setUser($user);
             $user->setClient($client);
 
-            $email->from('aymenradhouen@gmail.com')
+            $email = (new TemplatedEmail())
+                  ->from('aymenradhouen@gmail.com')
                   ->to($user->getEmail())
                   ->subject("welcome")
-                  ->text("Ahla ya khra");
+                  ->htmlTemplate('email/welcome.html.twig');
 
             $mailer->send($email);
             // encode the plain password
