@@ -27,6 +27,7 @@ class HomeController extends AbstractController
     public function account(Client $client): Response
     {
 
+
         return $this->render('home/account.html.twig',[
             'client' => $client,
         ]);

@@ -29,11 +29,7 @@
                 <tr>
                     <td>{{ item.article.nom }}</td>
                     <td>{{ item.article.prix }} DT</td>
-                    <td>
-                        <form method="POST" action="{{ path('panier') }}">
-                            <input style="width: 70px;height: 30px;" type="number" value="1" min="1" max="{{ item.article.quantite }}" step="1" class="form-control" name="quantite">
-                            <input type="submit">
-                        </form></td>
+                    <td></td>
                     <td>{{ item.article.prix * item.article.quantite }} DT</td>
                     <td>
                         <a href="{{ path('panier_remove', {id : item.article.id}) }}" class="btn btn-danger btn-sm">

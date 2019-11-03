@@ -46,6 +46,10 @@
                                 </h4>
                                 <h5>{{ article.prix }} Dt</h5>
                                 <p class="card-text">{{ article.description }}</p>
+                                <form>
+                                    <label for="quantite">Qte</label>
+                                    <input type="number" name="quantity" min="1" max="{{ article.quantite }}" class="form-control" value="1">
+                                </form>
                                 <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right">
                                     <i class="fas fa-shopping-cart mr-1"></i>
                                     Ajouter

@@ -114,10 +114,11 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user,ClientRepository $clientRepo,$id): Response
+    public function delete(Request $request, User $user): Response
     {
-        dd($user);
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();

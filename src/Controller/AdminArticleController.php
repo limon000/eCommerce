@@ -47,10 +47,12 @@ class AdminArticleController extends AbstractController
                 ->setUserCreated($user);
 
 
-            $file = $article->getImage();
-            $filename = md5(uniqid()).'.'.$file->guessExtension();
-            $file->move($this->getParameter('upload_directory'),$filename);
-            $article->setImage($filename);
+            $file = $form->get('image')->getData();
+            if($file) {
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $filename);
+                $article->setImage($filename);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
@@ -83,6 +85,12 @@ class AdminArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('image')->getData();
+            if($file) {
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $filename);
+                $article->setImage($filename);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index');
@@ -90,7 +98,7 @@ class AdminArticleController extends AbstractController
 
         return $this->render('admin/article/edit.html.twig', [
             'article' => $article,
-            'form' => $form->createView(),
+            'articleForm' => $form->createView(),
         ]);
     }
 

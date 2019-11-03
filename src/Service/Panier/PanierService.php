@@ -3,6 +3,7 @@
 namespace App\Service\Panier;
 
 use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PanierService {
@@ -13,6 +14,7 @@ class PanierService {
     {
         $this->session = $session;
         $this->articleRepo = $articleRepo;
+
     }
 
     public function add(int $id) {
