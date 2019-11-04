@@ -35,7 +35,7 @@
                 </td>
                 <td data-th="Price">{{ item.article.prix }} TND</td>
                 <td data-th="Quantity">
-                    <input type="number" class="form-control text-center" id="quantity" min="1" max="{{ item.article.quantite }}" value="1">
+                    <input type="number" class="form-control text-center" name="quantity" id="quantity" min="1" max="{{ item.article.quantite }}" value="1">
                 </td>
                 <td data-th="Subtotal" class="text-center">{{ item.article.prix * item.quantite }} TND</td>
                 <td class="actions" data-th="">
@@ -57,7 +57,7 @@
             </tfoot>
         </table>
         {% else %}
-            <p>Surprise, c'est vide !</p>
+            <p>Lich King !</p>
         {% endif %}
     </div>
 
@@ -74,7 +74,7 @@
         function onChangeBtn(event)
         {
             event.preventDefault();
-            const url = this.href;
+            const url = ('/panier');
 
             axios.get(url).then(function (response) {
                 console.log(response);
