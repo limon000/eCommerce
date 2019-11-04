@@ -3,58 +3,86 @@
 {% block title %}Hello HomeController!{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 
-
-    <div class="bg-light p-3">
-        <h1>Votre panier</h1>
-    </div>
-
-    {% if items | length > 0 %}
-        <table class="table">
+    <div class="container">
+        {% if items | length > 0 %}
+        <table id="cart" class="table table-hover table-condensed">
             <thead>
             <tr>
-                <th>Article</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Total</th>
+                <th style="width:50%">Produit</th>
+                <th style="width:10%">Prix</th>
+                <th style="width:8%">Quantite</th>
+                <th style="width:22%" class="text-center">Subtotal</th>
+                <th style="width:10%"></th>
             </tr>
             </thead>
             <tbody>
             {% for item in items %}
-                <tr>
-                    <td>{{ item.article.nom }}</td>
-                    <td>{{ item.article.prix }} DT</td>
-                    <td></td>
-                    <td>{{ item.article.prix * item.article.quantite }} DT</td>
-                    <td>
-                        <a href="{{ path('panier_remove', {id : item.article.id}) }}" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"> </i>
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-2 hidden-xs"><img src="uploads/{{ item.article.image }}" class="img-responsive" width="70" height="70"/></div>
+                        <div class="col-sm-10">
+                            <h4 class="nomargin">{{ item.article.nom }}</h4>
+                            <p>{{ item.article.description }}</p>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">{{ item.article.prix }} TND</td>
+                <td data-th="Quantity">
+                    <input type="number" class="form-control text-center" id="quantity" min="1" max="{{ item.article.quantite }}" value="1">
+                </td>
+                <td data-th="Subtotal" class="text-center">{{ item.article.prix * item.quantite }} TND</td>
+                <td class="actions" data-th="">
+                    <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                    <a href="{{ path('panier_remove', {id : item.article.id}) }}">
+                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                    </a>
+                </td>
+            </tr>
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3" class="text-right">Total : </td>
-                <td>{{ total }} DT</td>
+                <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                <td colspan="2" class="hidden-xs"></td>
+                <td class="hidden-xs text-center"><strong>Total {{ total }} TND</strong></td>
+                <td><a href="https://www.paypal.com/webapps/shoppingcart?mfid=1546373779156_cb91e3a2b2dc7&flowlogging_id=cb91e3a2b2dc7#/checkout/shoppingCart" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
             </tr>
             </tfoot>
-
         </table>
-
-{% else %}
-    <p>Surprise, c'est vide !</p>
-{% endif %}
+        {% else %}
+            <p>Surprise, c'est vide !</p>
+        {% endif %}
+    </div>
 
 {% endblock %}
 
 {% block javascripts %}
     <script src="/js/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        function onChangeBtn(event)
+        {
+            event.preventDefault();
+            const url = this.href;
+
+            axios.get(url).then(function (response) {
+                console.log(response);
+            })
+        }
+
+        document.querySelectorAll("#quantity").forEach(function (link) {
+            link.addEventListener('change', onChangeBtn);
+        })
+    </script>
 {% endblock %}
