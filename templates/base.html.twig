@@ -1,35 +1,69 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-            <link rel="stylesheet" href="/css/Navigation-with-Button.css">
+            <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
             <link rel="stylesheet" href="/css/Footer-Basic.css">
             <link rel="stylesheet" href="/fonts/ionicons.min.css">
-            <link rel="stylesheet" href="css/Login-Form-Clean.css">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-        <div class="container"><a class="navbar-brand" href="{{ path('home') }}">E-commerce</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse"
-                 id="navcol-1">
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#">Profile</a></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Categories </a>
-                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="">Informatique</a><a class="dropdown-item" role="presentation" href="#">Multimedia</a><a class="dropdown-item" role="presentation" href="#">Immobilier</a></div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('home') }}">Ecommerce</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Categories</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('panier') }}">Cart</a>
                     </li>
                     {% if not is_granted('ROLE_USER') %}
-                </ul><span class="navbar-text actions"> <a class="login" href="{{ path('app_login') }}">Log In</a><a class="btn btn-light action-button" role="button" href="{{ path('app_register') }}">Sign Up</a></span>
-{% else %}
-                <span class="navbar-text actions"> <a class="login" href="{{ path('app_logout') }}">Log Out</a></span>
-            </div>
-            {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
 
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary btn-number">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="btn btn-success btn-sm ml-3" href="{{ path('panier') }}">
+                        <i class="fa fa-shopping-cart"></i> Cart
+                        <span class="badge badge-light">{{ app.session.get('panier')|length }}</span>
+                    </a>
+                </form>
+
+            </div>
         </div>
     </nav>
 

@@ -5,79 +5,134 @@
     {{ parent() }}
     <link href="css/shop-item.css" rel="stylesheet">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 {% endblock %}
 
 {% block body %}
 
-{% for article in articles %}
- <div class="container">
+    {% for article in articles %}
 
-    <div class="row">
+    <div class="container">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">{{ article.nom }}</h1>
+            </div>
+        </section>
+        <div class="row">
+            <!-- Image -->
+            <div class="col-12 col-lg-6">
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <a href="" data-toggle="modal" data-target="#productModal">
+                            <img class="img-fluid" style="height: 500px; width: 500px;" src="/uploads/{{ article.image }}" />
+                            <p class="text-center">Zoom</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        <div class="col-lg-3">
-            <h1 class="my-4">Categories</h1>
-            <div class="list-group">
-                <a href="{{ path('informatique') }}" class="list-group-item active">Informatique</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
+            <!-- Add to cart -->
+            <div class="col-12 col-lg-6 add_to_cart_block">
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <p class="price" style="color: #c01508; text-align: center;font-weight: bold;font-size: 200%; margin-bottom: 0;">{{ article.prix }} TND</p>
+                        <form method="POST" action="{{ path('panier_add', {id : article.id}) }}" name="myForm">
+                            <div class="form-group">
+                                <label>Quantity :</label>
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ article.quantite }}">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg btn-block text-uppercase">
+                                    <i class="fa fa-shopping-cart"></i> Add To Cart
+                            </button>
+
+                        </form>
+                        <div class="reviews_product p-3 mb-2 ">
+                            {{ article.reviews | length }} reviews
+                            <a class="pull-right" href="#reviews">View all reviews</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <div class="row">
+            <!-- Description -->
+            <div class="col-12">
+                <div class="card border-light mb-3">
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Description</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ article.description  }}
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-        <!-- /.col-lg-3 -->
+            <!-- Reviews -->
+            <div class="col-12" id="reviews">
+                <div class="card border-light mb-3">
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-comment"></i> Reviews</div>
+                    <div class="card-body">
+    {% for review in article.reviews %}
+                        <div class="review">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            {% if review.username == app.user.loginName %}
+                                <a style="float: right;" href="{{ path('review_remove', {id : review.id}) }}" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            {% endif %}
+                            <meta itemprop="datePublished" content="01-01-2016">{{ review.createdAt|date('Y-m-d H:i:s') }}
+                            by {{ review.username }}
+                            <p class="blockquote">
+                            <p class="mb-0">{{ review.content }}</p>
 
-      <div class="col-lg-9">
-
-        <div class="card mt-4">
-          <img style="width: 250px;" class="card-img-top img-fluid" src="/uploads/{{ article.image }}" alt="">
-          <div class="card-body">
-            <h3 class="card-title">{{ article.nom }}</h3>
-            <h4>{{ article.prix }} Dt</h4>
-            <p class="card-text">{{ article.description  }}</p>
-              <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right">
-                  <i class="fas fa-shopping-cart mr-1"></i>
-                  Ajouter
-              </a>
-            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-            4.0 stars
-          </div>
+                            </p>
+                            <hr>
+                        </div>
+    {% endfor %}
+        {{ form_start(reviews) }}
+        {{ form_row(reviews.content,  {'label' : 'Review','attr' : {'placeholder' : "Review",'class' : 'form-control'}}) }}
+        <button type="submit" class="btn btn-success">Leave a Review</button>
+        {{ form_end(reviews) }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.card -->
-
-        <div class="card card-outline-secondary my-4">
-          <div class="card-header">
-              {{ article.reviews | length }}
-            Article Reviews
-          </div>
-            {% for review in article.reviews %}
-          <div class="card-body">
-              {% if review.username == app.user.loginName %}
-              <a style="float: right;" href="{{ path('review_remove', {id : review.id}) }}" class="btn btn-danger btn-sm">
-                  <i class="fas fa-trash">X</i>
-              </a>
-             {% endif %}
-            <p>{{ review.content }}</p>
-            <small class="text-muted">Posted by {{ review.username }} on {{ review.createdAt|date('Y-m-d H:i:s') }}</small>
-            <hr>
-              {% endfor %}
-              {{ form_start(reviews) }}
-              {{ form_row(reviews.content,  {'label' : 'Review','attr' : {'placeholder' : "Review",'class' : 'form-control'}}) }}
-              <button type="submit" class="btn btn-success">Leave a Review</button>
-              {{ form_end(reviews) }}
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
 
-  </div>
-{% endfor %}
+
+    <!-- Modal image -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">{{ article.nom }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" style="height: 500px; width: 500px;" src="/uploads/{{ article.image }}" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
 
 {% endblock %}
 
 {% block javascripts %}
     <script src="/js/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/shop.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock %}

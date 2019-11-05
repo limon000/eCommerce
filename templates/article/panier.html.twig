@@ -3,8 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 {% endblock %}
 
 {% block body %}
@@ -34,12 +33,14 @@
                     </div>
                 </td>
                 <td data-th="Price">{{ item.article.prix }} TND</td>
+                <form method="POST" action="{{ path('panier_add', {id : item.article.id}) }}">
                 <td data-th="Quantity">
-                    <input type="number" class="form-control text-center" name="quantity" id="quantity" min="1" max="{{ item.article.quantite }}" value="1">
+                    <input type="number" class="form-control text-center" name="quantity" id="quantity" min="1" max="{{ item.article.quantite }}" value="{{ item.quantite }}">
                 </td>
                 <td data-th="Subtotal" class="text-center">{{ item.article.prix * item.quantite }} TND</td>
                 <td class="actions" data-th="">
-                    <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                    <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                    </form>
                     <a href="{{ path('panier_remove', {id : item.article.id}) }}">
                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                     </a>
@@ -68,21 +69,4 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <script>
-        function onChangeBtn(event)
-        {
-            event.preventDefault();
-            const url = ('/panier');
-
-            axios.get(url).then(function (response) {
-                console.log(response);
-            })
-        }
-
-        document.querySelectorAll("#quantity").forEach(function (link) {
-            link.addEventListener('change', onChangeBtn);
-        })
-    </script>
 {% endblock %}
