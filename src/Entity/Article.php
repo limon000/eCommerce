@@ -68,6 +68,7 @@ class Article
      */
     private $reviews;
 
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();

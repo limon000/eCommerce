@@ -3,6 +3,7 @@
 namespace App\Service\Panier;
 
 use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PanierService {
@@ -16,13 +17,14 @@ class PanierService {
 
     }
 
-    public function add(int $id) {
+    public function add(int $id,Request $request) {
         $panier = $this->session->get('panier', []);
+        $qte = $request->request->get('quantity');
 
 
         if(!empty($panier[$id]))
         {
-            $panier[$id]++;
+            $panier[$id] = $qte;
         }
         else {
             $panier[$id] = 1;

@@ -53,6 +53,7 @@ class Client
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\user", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 

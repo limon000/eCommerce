@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -116,9 +115,7 @@ class AdminController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
