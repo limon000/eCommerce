@@ -51,12 +51,6 @@ class Client
      */
     private $postcode;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\user", orphanRemoval=true, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $user;
-
 
     public function getId(): ?int
     {
@@ -147,16 +141,5 @@ class Client
         return $this;
     }
 
-    public function getUser(): ?user
-    {
-        return $this->user;
-    }
-
-    public function setUser(?user $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
 }

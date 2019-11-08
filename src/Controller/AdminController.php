@@ -50,7 +50,7 @@ class AdminController extends AbstractController
             $client->setCity("null");
             $client->setState("null");
             $client->setPostcode("null");
-            $client->setUser($user);
+            $user->setClient($client);
 
             $user->setPassword(
                 $passwordEncoder->encodePassword(
