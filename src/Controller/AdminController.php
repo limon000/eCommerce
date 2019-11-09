@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class AdminController extends AbstractController
 {
+
     /**
      * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user", name="user_index", methods={"GET"})
@@ -128,8 +130,16 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function admin()
+    public function admin(UserRepository $userRepo,ArticleRepository $articleRepo) : Response
     {
-        return $this->render('admin/home_admin.html.twig');
+        $users = $userRepo->findAll();
+        $articles = $articleRepo->findAll();
+
+
+        return $this->render('admin/home_admin.html.twig',[
+            'users' => $users,
+            'articles' => $articles,
+        ]);
     }
+
 }
