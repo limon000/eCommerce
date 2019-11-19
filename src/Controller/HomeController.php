@@ -25,7 +25,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/account/{id}", name="account")
+     * @Route("/profile/{id}", name="account")
      * @IsGranted("ROLE_USER")
      */
     public function account(Client $client,ReviewRepository $reviewRepo,User $user): Response

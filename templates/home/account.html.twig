@@ -9,152 +9,133 @@
 
 {% block body %}
 
-    <div class="container bootstrap snippet">
-        <div class="row">
-            <div class="col-sm-10"><h1>{{ app.user.loginName }}</h1></div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="list-group ">
+                    <a href="#profile" data-toggle="tab" class="list-group-item list-group-item-action active">Profile</a>
+                    <a href="#login" data-toggle="tab" class="list-group-item list-group-item-action">Login Information</a>
+                </div>
+            </div>
+            <div class="tab-content" style="width: 800px;">
+            <div class="tab-pane" id="profile">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Your Profile</h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="{{ path('profile_edit', {id : client.id}) }}">
+                                    <div class="form-group row">
+                                        <label for="fullname" class="col-4 col-form-label">Fullname</label>
+                                        <div class="col-8">
+                                            <input id="fullname" name="fullname" placeholder="Fullname" class="form-control here" value="{{ client.fullname }}" required="required" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="birthdate" class="col-4 col-form-label">Date Of Birth</label>
+                                        <div class="col-8">
+                                            <input id="birthdate" name="birthdate" placeholder="Date Of Birth" value="{{ client.birthdate|date("d/m/Y") }}" class="form-control here" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="address1" class="col-4 col-form-label">Address 1</label>
+                                        <div class="col-8">
+                                            <input id="address1" name="address1" placeholder="Address 1" class="form-control here" value="{{ client.address1 }}" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="address2" class="col-4 col-form-label">Address 2</label>
+                                        <div class="col-8">
+                                            <input id="address2" name="address2" placeholder="Address 2" class="form-control here" value="{{ client.address2 }}" required="required" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="city" class="col-4 col-form-label">City</label>
+                                        <div class="col-8">
+                                            <input id="city" name="city" placeholder="City" class="form-control here" value="{{ client.city }}" required="required" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="state" class="col-4 col-form-label">State</label>
+                                        <div class="col-8">
+                                            <input id="state" name="state" placeholder="State" class="form-control here" value="{{ client.state }}" required="required" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="postcode" class="col-4 col-form-label">Post Code</label>
+                                        <div class="col-8">
+                                            <input id="postcode" name="postcode" placeholder="Post Code" class="form-control here" value="{{ client.postcode }}" required="required" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-4 col-8">
+                                            <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="tab-pane" id="login">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Your Login Information</h4>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="{{ path('profile_edit_login' , {id : app.user.id}) }}">
+                                        <div class="form-group row">
+                                            <label for="username" class="col-4 col-form-label">Username</label>
+                                            <div class="col-8">
+                                                <input id="username" name="username" placeholder="Username" class="form-control here" value="{{ app.user.loginName }}" required="required" type="text" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="email" class="col-4 col-form-label">Email</label>
+                                            <div class="col-8">
+                                                <input id="email" name="email" placeholder="Email" value="{{ app.user.email }}" class="form-control here" type="text" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="password" class="col-4 col-form-label">Password</label>
+                                            <div class="col-8">
+                                                <input id="password" name="password" placeholder="Password" class="form-control here" value="•••••" type="text" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-4 col-8">
+                                                <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
-        <br><br>
-        <div class="row">
-            <div class="col-sm-3"><!--left col-->
-
-
-                <div class="text-center">
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                    <h6>Upload a different photo...</h6>
-                    <input type="file" class="text-center center-block file-upload">
-                </div></hr><br>
-
-
-
-                <ul class="list-group">
-                    <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Articles</strong></span> 125</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> {{ review|length }}</li>
-                </ul>
-
-
-            </div><!--/col-3-->
-            <div class="col-sm-9">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
-                    <li><a data-toggle="tab" href="#messages">Login Information</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="home">
-                        <hr>
-                        <form class="form" action="{{ path('profile_edit', {id : client.id}) }}">
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="fullname"><h4>Fullname</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.fullname }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="birthdate"><h4>Birth Date</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.birthdate|date("d/m/Y") }}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="address1"><h4>Address 1</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.address1 }}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <label for="address2"><h4>Address 2</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.address2 }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="city"><h4>City</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.city }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="state"><h4>State</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.state }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="postcode"><h4>Post code</h4></label>
-                                    <input type="text" class="form-control" value="{{ client.postcode }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <br>
-                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
-                                </div>
-                            </div>
-                        </form>
-
-                        <hr>
-
-                    </div><!--/tab-pane-->
-                    <div class="tab-pane" id="messages">
-
-
-                        <h2></h2>
-
-                        <hr>
-                        <form class="form" action="{{ path('profile_edit_login' , {id : app.user.id}) }}">
-
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="username"><h4>Username</h4></label>
-                                    <input type="text" class="form-control" value="{{ app.user.loginName }}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Email</h4></label>
-                                    <input type="email" class="form-control" value="{{ app.user.email }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password"><h4>Password</h4></label>
-                                    <input type="text" class="form-control" value="•••••" disabled>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <br>
-                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div><br><br>
-
-                </div><!--/tab-pane-->
-
-    </div><!--/tab-content-->
-
-        </div><!--/col-9-->
-    </div><!--/row-->
-
-
+    </div>
 
 {% endblock %}
 

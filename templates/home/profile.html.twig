@@ -4,114 +4,86 @@
 
 {% block stylesheets %}
 {{ parent() }}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
 {% endblock %}
 
 {% block body %}
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
 
-        <hr>
-        <div class="container bootstrap snippet">
+        <div class="container">
         <div class="row">
-            <div class="col-sm-10"><h1>{{app.user.loginName }}</h1></div>
-            </div>
-
-<br><br>
-        <div class="row">
-        <div class="col-sm-3">
-
-
-            <div class="text-center">
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                <h6>Upload a different photo...</h6>
-                <input type="file" class="text-center center-block file-upload">
-            </div></hr><br>
-
-
-
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Articles</strong></span> 125</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Reviews</strong></span> 13</li>
-            </ul>
-
-
-        </div><!--/col-3-->
-        <div class="col-sm-9">
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
-        </ul>
-
-
-       <div class="tab-content">
-                    <div class="tab-pane active" id="home">
-                        <hr>
-{{ form_start(form) }}
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    {{ form_row(form.fullname,{'label' : 'Fullname', 'attr' : {'placeholder' : 'Your fullname ....','class' : 'form-control'}}) }}
-                                </div>
-                    </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    {{ form_row(form.birthdate,{'label' : 'Date of birth', 'attr' : {'class' : 'form-control'}}) }}
-                            </div>
+            <div class="col-md-3 ">
+                <div class="list-group ">
+                    <a href="#" class="list-group-item list-group-item-action active">Profile</a>
                 </div>
-                            <div class="form-group">
-                                <div class="col-xs-6">
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Your Profile</h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                            {{ form_start(form) }}
+                                    <div class="form-group row">
+                                        <div class="col-8">
+                                    {{ form_row(form.fullname,{'label' : 'Fullname', 'attr' : {'placeholder' : 'Your fullname ....','class' : 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
+                                    {{ form_row(form.birthdate,{'label' : 'Date of birth', 'attr' : {'class' : 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
                                     {{ form_row(form.address1,{'label' : 'Address 1', 'attr' : {'placeholder' : 'Address Line 1 ....','class' : 'form-control'}}) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
                                     {{ form_row(form.address2,{'attr' : {'placeholder' : 'Address Line 2 ....','class' : 'form-control'}}) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
                                     {{ form_row(form.city,{'attr' : {'placeholder' : 'City ....','class' : 'form-control'}}) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
                                     {{ form_row(form.state,{'attr' : {'placeholder' : 'State ....','class' : 'form-control'}}) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-8">
                                     {{ form_row(form.postcode,{'attr' : {'placeholder' : 'Post code ....','class' : 'form-control'}}) }}
-                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div>
+                                            <button name="submit" type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                        <a href="{{ path('account', {id : app.user.client.id}) }}" class="btn btn-primary">Cancel</a>
+                                    </div>
+                                    {{ form_end(form) }}
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                           <div class="col-xs-12">
-                                <br>
-                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                              	<a href="" class="btn btn-lg">Cancel</a>
-                            </div>
-                      </div>
-
-                        <hr>
-                        {{ form_end(form) }}
-     </div>
-          </div>
-
-
-    </div><!--/col-9-->
-    </div><!--/row-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
