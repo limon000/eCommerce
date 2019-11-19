@@ -36,6 +36,7 @@
 
 
                 <div class="row">
+                    {% if articles | length > 0 %}
                     {% for article in articles %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
@@ -58,6 +59,9 @@
                         </div>
 
                     {% endfor %}
+                    {% else %}
+                    <p>Aucun produit !</p>
+                    {% endif %}
                 </div>
                 <!-- /.row -->
 

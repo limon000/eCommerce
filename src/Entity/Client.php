@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +52,16 @@ class Client
      * @ORM\Column(type="string", length=255)
      */
     private $postcode;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="client")
+     */
+    private $order;
+
+    public function __construct()
+    {
+        $this->order = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -137,6 +149,37 @@ class Client
     public function setPostcode(string $postcode): self
     {
         $this->postcode = $postcode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrder(): Collection
+    {
+        return $this->order;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->order->contains($order)) {
+            $this->order[] = $order;
+            $order->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Order $order): self
+    {
+        if ($this->order->contains($order)) {
+            $this->order->removeElement($order);
+            // set the owning side to null (unless already changed)
+            if ($order->getClient() === $this) {
+                $order->setClient(null);
+            }
+        }
 
         return $this;
     }
