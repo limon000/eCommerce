@@ -50,7 +50,7 @@
 {% block javascripts %}
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        var stripe = Stripe('pk_test_SkOlPhzMhFZbdbvozxjiUcQV00EWR0Q2GV');
+        var stripe = Stripe('{{ stripe_public_key }}');
         var elements = stripe.elements();
         var style = {
             base: {

@@ -9,6 +9,11 @@
 {% block body %}
 
     <div class="container">
+        {% for message in app.session.flashbag.get('ProductSuccess') %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% if items | length > 0 %}
         <table id="cart" class="table table-hover table-condensed">
             <thead>

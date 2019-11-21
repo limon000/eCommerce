@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Service\Panier\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
@@ -16,7 +15,6 @@ class CartController extends AbstractController
      */
     public function panier(PanierService $panierService)
     {
-
         return $this->render('article/panier.html.twig', [
             'items' => $panierService->getFullCart(),
             'total' => $panierService->getTotal(),
@@ -30,6 +28,7 @@ class CartController extends AbstractController
     {
 
         $panierService->add($id,$request);
+        $this->addFlash('ProductSuccess', 'Product Added Successfully');
         return $this->redirectToRoute("panier");
     }
 
@@ -42,26 +41,6 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('panier');
     }
-
-    /**
-     * @Route("/payment", name="payment")
-     */
-    public function index(Request $request,PanierService $panierService,SessionInterface $session)
-    {
-        \Stripe\Stripe::setApiKey('sk_test_slLLiq3g14CyTcksAsrHfJl300x94MIOOM');
-
-        $token = $request->request->get('stripeToken');
-        $charge = \Stripe\Charge::create([
-            'amount' => $panierService->getTotal()*100,
-            'currency' => 'usd',
-            'source' => 'tok_visa',
-            'receipt_email' => 'jenny.rosen@example.com',
-        ]);
-
-        return $this->render('payment/payment.html.twig');
-    }
-
-
 
 
 }

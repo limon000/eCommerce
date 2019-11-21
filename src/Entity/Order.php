@@ -39,7 +39,7 @@ class Order
     private $orderDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $ordertotal;
 
@@ -107,12 +107,12 @@ class Order
         return $this;
     }
 
-    public function getOrdertotal(): ?string
+    public function getOrdertotal(): ?int
     {
         return $this->ordertotal;
     }
 
-    public function setOrdertotal(string $ordertotal): self
+    public function setOrdertotal(int $ordertotal): self
     {
         $this->ordertotal = $ordertotal;
 

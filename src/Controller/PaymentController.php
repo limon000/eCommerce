@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PaymentController extends AbstractController
 {
+    /**
+     * @Route("/webhook")
+     */
     public function payment()
     {
         \Stripe\Stripe::setApiKey('sk_test_slLLiq3g14CyTcksAsrHfJl300x94MIOOM');

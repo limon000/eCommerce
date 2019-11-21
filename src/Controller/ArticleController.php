@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Review;
-use App\Entity\User;
 use App\Form\ReviewType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;

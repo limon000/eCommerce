@@ -24,6 +24,11 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    private $stripeCustomerId;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -208,5 +213,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+
+    public function getStripeCustomerId()
+    {
+        return $this->stripeCustomerId;
+    }
+
+
+    public function setStripeCustomerId($stripeCustomerId): void
+    {
+        $this->stripeCustomerId = $stripeCustomerId;
+    }
+
+
 
 }
