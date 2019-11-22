@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Client;
-use App\Entity\Review;
 use App\Entity\User;
+use App\Repository\ArticleRepository;
 use App\Repository\ReviewRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +18,13 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(ArticleRepository $artcileRepo)
     {
-        return $this->render('home/home.html.twig', [
-            'controller_name' => 'HomeController',
+        $article = $artcileRepo->findAll();
+        shuffle($article);
+
+        return $this->render('home/home.html.twig',[
+            'articles' => $article
         ]);
     }
 
@@ -37,6 +41,28 @@ class HomeController extends AbstractController
         return $this->render('home/account.html.twig',[
             'client' => $client,
             'review' => $review,
+        ]);
+    }
+
+    /**
+     * @Route("/resultats", name="search_results")
+     */
+    public function search(Request $request,ObjectManager $manager,ArticleRepository $articleRepo)
+    {
+        if($request->isMethod('GET')) {
+            $search = $request->query->get('search');
+
+            $resultats = $articleRepo->findBy([
+                'nom' => $search,
+            ]);
+            if(!$resultats)
+            {
+                $this->addFlash('error', 'Pas de resultat');
+            }
+        }
+
+        return $this->render('article/recherche.html.twig',[
+            'resultat' => $resultats,
         ]);
     }
 

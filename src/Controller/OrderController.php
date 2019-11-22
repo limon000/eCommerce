@@ -38,6 +38,8 @@ class OrderController extends AbstractController
             }
 
             $stripeClient->createInvoice($user,true);
+            $order = new Order();
+
 
             $session->clear('panier');
             $this->addFlash('PaymentSuccess', 'Order Complete !');

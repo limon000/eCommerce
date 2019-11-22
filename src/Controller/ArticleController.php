@@ -90,4 +90,64 @@ class ArticleController extends AbstractController
             ]);
     }
 
+    /**
+     * @Route("/tv", name="tv")
+     */
+    public function tv(ArticleRepository $artcileRepo)
+    {
+        $article = $artcileRepo->findBy([
+            'categorie' => "TV | Photo & Son"
+        ]);
+
+        return $this->render('article/tv.html.twig',
+            [
+                'articles' => $article,
+            ]);
+    }
+
+    /**
+     * @Route("/gaming", name="gaming")
+     */
+    public function gaming(ArticleRepository $artcileRepo)
+    {
+        $article = $artcileRepo->findBy([
+            'categorie' => "Gaming"
+        ]);
+
+        return $this->render('article/gaming.html.twig',
+            [
+                'articles' => $article,
+            ]);
+    }
+
+    /**
+     * @Route("/impression", name="impression")
+     */
+    public function impression(ArticleRepository $artcileRepo)
+    {
+        $article = $artcileRepo->findBy([
+            'categorie' => "Impression"
+        ]);
+
+        return $this->render('article/impression.html.twig',
+            [
+                'articles' => $article,
+            ]);
+    }
+
+    /**
+     * @Route("/reseau", name="reseau")
+     */
+    public function reseau(ArticleRepository $artcileRepo)
+    {
+        $article = $artcileRepo->findBy([
+            'categorie' => "Reseaux & Securite"
+        ]);
+
+        return $this->render('article/reseau.html.twig',
+            [
+                'articles' => $article,
+            ]);
+    }
+
 }

@@ -25,9 +25,10 @@ class ArticleType extends AbstractType
                 'choices' => [
                     'Informatique' => 'Informatique',
                     'Telephonie' => 'Telephonie',
-                    'Electromenager' => 'Electromenager',
                     'TV | Photo & Son' => 'TV | Photo & Son',
-                    'Immobilier' => 'Immobilier',
+                    'Gaming' => 'Gaming',
+                    'Impression' => 'Impression',
+                    'Reseaux & Securite' => 'Reseaux & Securite',
                 ]
             ])
             ->add('image', FileType::class, [

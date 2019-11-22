@@ -47,9 +47,9 @@
     </table>
 
 
-    <a href="{{ path('article_index') }}">back to list</a>
+    <a href="{{ path('article_index') }}" class="btn btn-primary">back to list</a>
 
-    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+    <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-primary">edit</a>
 
     {{ include('admin/article/_delete_form.html.twig') }}
 {% endblock %}

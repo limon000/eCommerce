@@ -38,6 +38,8 @@ class CartController extends AbstractController
     public function remove($id,PanierService $panierService)
     {
         $panierService->remove($id);
+        $this->addFlash('ProductFail', 'Product Deleted Successfully');
+
 
         return $this->redirectToRoute('panier');
     }
