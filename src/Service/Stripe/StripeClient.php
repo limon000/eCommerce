@@ -45,7 +45,6 @@ class StripeClient
     {
         $invoice = \Stripe\Invoice::create(array(
             'customer' => $user->getStripeCustomerId(),
-
         ));
         if($payImmediately)
         {

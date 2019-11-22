@@ -38,18 +38,7 @@ class OrderController extends AbstractController
             }
 
             $stripeClient->createInvoice($user,true);
-            $order = new Order();
-                foreach ($panierService->getFullCart() as $item) {
-                          $order->setArticle($item['article'])
-                                ->setQuantity($item['quantite'])
-                                ->setClient($user->getClient())
-                                ->setFullname($user->getClient()->getFullname())
-                                ->setStatus('Completed')
-                                ->setOrderDate(new \DateTime())
-                                ->setOrdertotal($panierService->getTotal());
-                        }
-            $manager->persist($order);
-            $manager->flush();
+
             $session->clear('panier');
             $this->addFlash('PaymentSuccess', 'Order Complete !');
             return $this->redirectToRoute('home');
