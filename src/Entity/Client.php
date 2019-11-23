@@ -53,15 +53,17 @@ class Client
      */
     private $postcode;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
-    private $order;
+    private $commandes;
 
     public function __construct()
     {
-        $this->order = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
+
 
 
     public function getId(): ?int
@@ -153,36 +155,40 @@ class Client
         return $this;
     }
 
+
+
     /**
-     * @return Collection|Order[]
+     * @return Collection|Commande[]
      */
-    public function getOrder(): Collection
+    public function getCommandes(): Collection
     {
-        return $this->order;
+        return $this->commandes;
     }
 
-    public function addOrder(Order $order): self
+    public function addCommande(Commande $commande): self
     {
-        if (!$this->order->contains($order)) {
-            $this->order[] = $order;
-            $order->setClient($this);
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Order $order): self
+    public function removeCommande(Commande $commande): self
     {
-        if ($this->order->contains($order)) {
-            $this->order->removeElement($order);
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
             // set the owning side to null (unless already changed)
-            if ($order->getClient() === $this) {
-                $order->setClient(null);
+            if ($commande->getClient() === $this) {
+                $commande->setClient(null);
             }
         }
 
         return $this;
     }
+
+
 
 
 }

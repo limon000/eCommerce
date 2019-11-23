@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\User;
 use App\Repository\ArticleRepository;
+use App\Repository\CommandeRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,8 +33,12 @@ class HomeController extends AbstractController
      * @Route("/profile/{id}", name="account")
      * @IsGranted("ROLE_USER")
      */
-    public function account(Client $client,ReviewRepository $reviewRepo,User $user): Response
+    public function account(Client $client,ReviewRepository $reviewRepo,User $user,CommandeRepository $comRepo): Response
     {
+
+        $commande = $comRepo->findBy([
+            'client' => $client,
+        ]);
 
         $review = $reviewRepo->findBy([
             'username' => $user->getLoginName(),
@@ -41,6 +46,7 @@ class HomeController extends AbstractController
         return $this->render('home/account.html.twig',[
             'client' => $client,
             'review' => $review,
+            'commandes' => $commande,
         ]);
     }
 
@@ -65,6 +71,7 @@ class HomeController extends AbstractController
             'resultat' => $resultats,
         ]);
     }
+
 
 
 

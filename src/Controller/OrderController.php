@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
+use App\Entity\Commande;
 use App\Service\Panier\PanierService;
 use App\Service\Stripe\StripeClient;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -38,7 +38,19 @@ class OrderController extends AbstractController
             }
 
             $stripeClient->createInvoice($user,true);
-            $order = new Order();
+            $commande = new Commande();
+            foreach ($panierService->getFullCart() as $item)
+            {
+                $commande->setClient($this->getUser()->getClient())
+                         ->setArticles($item['article'])
+                         ->setDescription($item['article']->getNom())
+                         ->setQuantity($item['quantite'])
+                         ->setStatus("Completed")
+                         ->setOrderDate(new \DateTime())
+                         ->setOrderTotal($panierService->getTotal());
+            }
+            $manager->persist($commande);
+            $manager->flush();
 
 
             $session->clear('panier');
