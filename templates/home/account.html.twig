@@ -147,6 +147,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
+                                        {% if commandes | length > 0 %}
                                         {% for commande in commandes %}
                                         <h5>Nom de l'article : </h5>{{ commande.description }}<br>
                                         <h5>Quantite : </h5>{{ commande.quantity }}<br>
@@ -155,6 +156,9 @@
                                         <h5>Prix total : </h5>{{ commande.orderTotal }}$
                                             <hr>
                                         {% endfor %}
+                                        {% else %}
+                                        <p>Pas de commandes</p>
+                                        {% endif %}
                                     </div>
                                 </div>
 

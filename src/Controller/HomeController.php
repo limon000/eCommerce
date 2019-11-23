@@ -33,7 +33,7 @@ class HomeController extends AbstractController
      * @Route("/profile/{id}", name="account")
      * @IsGranted("ROLE_USER")
      */
-    public function account(Client $client,ReviewRepository $reviewRepo,User $user,CommandeRepository $comRepo): Response
+    public function account(Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
     {
 
         $commande = $comRepo->findBy([
@@ -41,7 +41,7 @@ class HomeController extends AbstractController
         ]);
 
         $review = $reviewRepo->findBy([
-            'username' => $user->getLoginName(),
+            'username' => $this->getUser()->getLoginName(),
         ]);
         return $this->render('home/account.html.twig',[
             'client' => $client,
