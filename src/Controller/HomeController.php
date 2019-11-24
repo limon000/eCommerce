@@ -7,6 +7,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class HomeController extends AbstractController
      * @Route("/profile/{id}", name="account")
      * @IsGranted("ROLE_USER")
      */
-    public function account(Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
+    public function account(Request $request,PaginatorInterface $paginator,Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
     {
 
             $commande = $comRepo->findBy([
@@ -43,10 +44,12 @@ class HomeController extends AbstractController
                 'username' => $this->getUser()->getLoginName(),
             ]);
 
+            $pagination = $paginator->paginate($commande,$request->query->getInt('page',1),5);
+
         return $this->render('home/account.html.twig',[
             'client' => $client,
             'review' => $review,
-            'commandes' => $commande,
+            'commandes' => $pagination,
         ]);
 
     }

@@ -7,6 +7,7 @@ use App\Entity\Review;
 use App\Form\ReviewType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,90 +64,99 @@ class ArticleController extends AbstractController
     /**
      * @Route("/informatique", name="informatique")
      */
-    public function informatique(ArticleRepository $artcileRepo)
+    public function informatique(Request $request,PaginatorInterface $paginator,ArticleRepository $artcileRepo)
     {
         $article = $artcileRepo->findBy([
             'categorie' => "informatique"
         ]);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),1);
 
         return $this->render('article/informatique.html.twig',
             [
-                'articles' => $article,
+                'articles' => $pagination,
             ]);
     }
 
     /**
      * @Route("/telephonie", name="telephonie")
      */
-    public function telephonie(ArticleRepository $artcileRepo)
+    public function telephonie(Request $request,PaginatorInterface $paginator,ArticleRepository $artcileRepo)
     {
         $article = $artcileRepo->findBy([
             'categorie' => "telephonie"
         ]);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
+
 
         return $this->render('article/telephonie.html.twig',
             [
-                'articles' => $article,
+                'articles' => $pagination,
             ]);
     }
 
     /**
      * @Route("/tv", name="tv")
      */
-    public function tv(ArticleRepository $artcileRepo)
+    public function tv(Request $request,PaginatorInterface $paginator,ArticleRepository $artcileRepo)
     {
         $article = $artcileRepo->findBy([
             'categorie' => "TV | Photo & Son"
         ]);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
+
 
         return $this->render('article/tv.html.twig',
             [
-                'articles' => $article,
+                'articles' => $pagination,
             ]);
     }
 
     /**
      * @Route("/gaming", name="gaming")
      */
-    public function gaming(ArticleRepository $artcileRepo)
+    public function gaming(Request $request,PaginatorInterface $paginator,ArticleRepository $artcileRepo)
     {
         $article = $artcileRepo->findBy([
             'categorie' => "Gaming"
         ]);
 
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
+
         return $this->render('article/gaming.html.twig',
             [
-                'articles' => $article,
+                'articles' => $pagination,
             ]);
     }
 
     /**
      * @Route("/impression", name="impression")
      */
-    public function impression(ArticleRepository $artcileRepo)
+    public function impression(Request $request,PaginatorInterface $paginator,ArticleRepository $artcileRepo)
     {
         $article = $artcileRepo->findBy([
             'categorie' => "Impression"
         ]);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
 
         return $this->render('article/impression.html.twig',
             [
-                'articles' => $article,
+                'articles' => $pagination,
             ]);
     }
 
     /**
      * @Route("/reseau", name="reseau")
      */
-    public function reseau(ArticleRepository $artcileRepo)
+    public function reseau(Request $request,PaginatorInterface $paginator,ArticleRepository $artcileRepo)
     {
         $article = $artcileRepo->findBy([
             'categorie' => "Reseaux & Securite"
         ]);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
 
         return $this->render('article/reseau.html.twig',
             [
-                'articles' => $article,
+                'articles' => $pagination,
             ]);
     }
 
