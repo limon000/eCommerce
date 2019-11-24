@@ -142,23 +142,37 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h4>Your Orders :</h4>
-                                        <hr>
+                                        <br>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        {% if commandes | length > 0 %}
-                                        {% for commande in commandes %}
-                                        <h5>Nom de l'article : </h5>{{ commande.description }}<br>
-                                        <h5>Quantite : </h5>{{ commande.quantity }}<br>
-                                        <h5>Status : </h5>{{ commande.status }}<br>
-                                        <h5>Date de la commande : </h5>{{ commande.orderDate|date("d/m/Y") }} <br>
-                                        <h5>Prix total : </h5>{{ commande.orderTotal }}$
-                                            <hr>
-                                        {% endfor %}
-                                        {% else %}
-                                        <p>Pas de commandes</p>
-                                        {% endif %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Description</th>
+                                                <th>Status</th>
+                                                <th>Order Date</th>
+                                                <th>Order Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for commande in commandes %}
+                                                <tr>
+                                                    <td>{{ commande.id }}</td>
+                                                    <td>{{ commande.description }}</td>
+                                                    <td>{{ commande.status }}</td>
+                                                    <td>{{ commande.orderDate|date("d/m/Y") }}</td>
+                                                    <td>{{ commande.orderTotal }} $</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="5">no orders found</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
 

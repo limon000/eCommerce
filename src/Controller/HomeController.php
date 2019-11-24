@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Client;
-use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ReviewRepository;
@@ -36,18 +35,20 @@ class HomeController extends AbstractController
     public function account(Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
     {
 
-        $commande = $comRepo->findBy([
-            'client' => $client,
-        ]);
+            $commande = $comRepo->findBy([
+                'client' => $client,
+            ]);
 
-        $review = $reviewRepo->findBy([
-            'username' => $this->getUser()->getLoginName(),
-        ]);
+            $review = $reviewRepo->findBy([
+                'username' => $this->getUser()->getLoginName(),
+            ]);
+
         return $this->render('home/account.html.twig',[
             'client' => $client,
             'review' => $review,
             'commandes' => $commande,
         ]);
+
     }
 
     /**
