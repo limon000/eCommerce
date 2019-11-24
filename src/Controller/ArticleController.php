@@ -69,7 +69,7 @@ class ArticleController extends AbstractController
         $article = $artcileRepo->findBy([
             'categorie' => "informatique"
         ]);
-        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),1);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
 
         return $this->render('article/informatique.html.twig',
             [
