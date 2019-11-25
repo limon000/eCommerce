@@ -34,7 +34,7 @@ class OrderController extends AbstractController
                 $stripeClient->updateCustomerCard($user,$token);
             }
             foreach ($panierService->getFullCart() as $item) {
-                $stripeClient->createInvoiceItem($item['article']->getPrix() * 100,$user,$item['article']->getNom());
+                $stripeClient->createInvoiceItem($item['article']->getPrix() * $item['quantite']* 100,$user,$item['article']->getNom());
             }
 
             $stripeClient->createInvoice($user,true);
