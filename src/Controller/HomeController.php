@@ -36,6 +36,10 @@ class HomeController extends AbstractController
     public function account(Request $request,PaginatorInterface $paginator,Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
     {
 
+        if ($client->getId() != $this->getUser()->getClient()->getId() ) {
+            return $this->redirectToRoute('home');
+        }
+
             $commande = $comRepo->findBy([
                 'client' => $client,
             ]);

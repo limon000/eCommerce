@@ -15,9 +15,9 @@
     {% for article in articles %}
 
     <div class="container">
-        <section class="jumbotron text-center">
+        <section class="jumbotron">
             <div class="container">
-                <h1 class="jumbotron-heading">{{ article.nom }}</h1>
+                <h1 class="jumbotron-heading">Categorie : {{ article.categorie }}</h1>
             </div>
         </section>
         <div class="row">
@@ -35,7 +35,8 @@
             <div class="col-12 col-lg-6 add_to_cart_block">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                        <p class="price" style="color: #c01508; text-align: center;font-weight: bold;font-size: 200%; margin-bottom: 0;">{{ article.prix }} TND</p>
+                        <p style="text-align: center;font-weight: bold;font-size: 200%;">{{ article.nom }}</p>
+                        <p class="price" style="color: #c01508; text-align: center;font-weight: bold;font-size: 150%; margin-bottom: 0;">{{ article.prix }} TND</p>
                         <form method="POST" action="{{ path('panier_add', {id : article.id}) }}" name="myForm">
                             <div class="form-group">
                                 <label>Quantity :</label>
@@ -75,10 +76,12 @@
     {% for review in article.reviews %}
                         <div class="review">
                             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if review.username == app.user.loginName %}
                                 <a style="float: right;" href="{{ path('review_remove', {id : review.id}) }}" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </a>
+                            {% endif %}
                             {% endif %}
                             <meta itemprop="datePublished" content="01-01-2016">{{ review.createdAt|date('Y-m-d H:i:s') }}
                             by {{ review.username }}
@@ -117,6 +120,9 @@
         </div>
     </div>
     {% endfor %}
+
+
+
 
 
 {% endblock %}
