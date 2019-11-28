@@ -45,7 +45,7 @@
                         {% for article in articles %}
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100">
-                                    <a href="{{ path('article', {id : article.id}) }}"><img class="card-img-top" src="/uploads/{{ article.image }}" alt=""></a>
+                                    <a href="{{ path('article', {id : article.id}) }}"><img class="card-img-top" src="uploads/{{ article.image }}" alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
                                             <a href="#">{{ article.nom }}</a>
