@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Repository\ArticleRepository;
 use App\Service\Panier\PanierService;
 use App\Service\Stripe\StripeClient;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class OrderController extends AbstractController
@@ -16,7 +19,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/payment", name="payment", schemes={"%secure_channel%"})
      */
-    public function index(Request $request,PanierService $panierService,SessionInterface $session,StripeClient $stripeClient,ObjectManager $manager)
+    public function index(ArticleRepository $articleRepo,MailerInterface $mailer,Request $request,PanierService $panierService,SessionInterface $session,StripeClient $stripeClient,ObjectManager $manager)
     {
         $session->get('panier', []);
 
@@ -41,14 +44,28 @@ class OrderController extends AbstractController
             $commande = new Commande();
             foreach ($panierService->getFullCart() as $item)
             {
+                $article = $articleRepo->findOneBy([
+                    'id' => $item['article'],
+                ]);
+                $article->setQuantite($article->getQuantite()-$item['quantite']);
+
                 $commande->setClient($this->getUser()->getClient())
-                         ->setArticles($item['article'])
+                         ->setArticle($item['article'])
                          ->setDescription($item['article']->getNom())
                          ->setQuantity($item['quantite'])
                          ->setStatus("Completed")
                          ->setOrderDate(new \DateTime())
                          ->setOrderTotal($panierService->getTotal());
             }
+            $email = (new Email())
+                ->to($this->getUser()->getEmail())
+                ->from("aymenradhouen@gmail.com")
+                ->subject("Order Details")
+                ->text(
+                    sprintf("Description : %s , Quantity : %s , Status : %s ,  Order Total : %s", $commande->getDescription(), $commande->getQuantity(), $commande->getStatus(), $commande->getOrderTotal())
+                );
+            $mailer->send($email);
+
             $manager->persist($commande);
             $manager->flush();
 

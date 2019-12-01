@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Impression{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
@@ -8,7 +8,7 @@
 {% block body %}
     <div class="container">
         <div class="bg-light p-3">
-            <h1>Les produits telephoniques</h1>
+            <h1>Les produits impressions</h1>
         </div>
         <div class="row">
 
@@ -41,12 +41,25 @@
                                         <h4 class="card-title">
                                             <a href="#">{{ article.nom }}</a>
                                         </h4>
+                                        {% if article.quantite == 0 %}
+                                            <span style="display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: red;">Sold Out</span>
+                                        {% endif %}
                                         <h5>{{ article.prix }} $</h5>
                                         <p class="card-text">{{ article.description }}</p>
-                                        <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right">
-                                            <i class="fa fa-shopping-cart mr-1"></i>
-                                            Ajouter
-                                        </a>
+                                        {% if article.quantite > 0 %}
+                                            <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right">
+                                                <i class="fa fa-shopping-cart mr-1"></i>
+                                                Ajouter
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right disabled">
+                                                <i class="fa fa-shopping-cart mr-1"></i>
+                                                Ajouter
+                                            </a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block Title %}Contact{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/css/Contact-Form-Clean.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="contact-clean">
+        {{ form_start(form) }}
+        <h2 class="text-center">Contact us</h2>
+        <div class="form-group">
+            {{ form_row(form.name,{'label' : false, 'attr' : {'placeholder' : 'Name','class' : 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.email,{'label' : false, 'attr' : {'placeholder' : 'Email','class' : 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.message,{'label' : false, 'attr' : {'placeholder' : 'Message','class' : 'form-control'}}) }}
+        </div>
+        <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

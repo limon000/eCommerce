@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Article Information{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/shop-item.css') }}" rel="stylesheet">
@@ -36,7 +36,26 @@
                 <div class="card bg-light mb-3">
                     <div class="card-body">
                         <p style="text-align: center;font-weight: bold;font-size: 200%;">{{ article.nom }}</p>
-                        <p class="price" style="color: #c01508; text-align: center;font-weight: bold;font-size: 150%; margin-bottom: 0;">{{ article.prix }} TND</p>
+                        <p class="price" style="color: #c01508; text-align: center;font-weight: bold;font-size: 150%; margin-bottom: 0;">{{ article.prix }} $</p>
+                        <div style="display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c6a74;">Availability:</div>
+                        {% if article.quantite > 0 %}
+                            <span style="display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #44a038;
+    margin-left: 5px;"
+                            >In Stock</span>
+                            {% else %}
+                                <span style="display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: red;
+    margin-left: 5px;"
+                                >Sold Out</span>
+                        {% endif %}
                         <form method="POST" action="{{ path('panier_add', {id : article.id}) }}" name="myForm">
                             <div class="form-group">
                                 <label>Quantity :</label>
@@ -44,8 +63,13 @@
                                     <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ article.quantite }}" value="1">
                                 </div>
                             </div>
+                            {% if article.quantite > 0 %}
                             <button type="submit" class="btn btn-success btn-lg btn-block text-uppercase"><i class="fa fa-shopping-cart"></i> Add To Cart
                             </button>
+                            {% else %}
+                                <button type="submit" class="btn btn-success btn-lg btn-block text-uppercase" disabled><i class="fa fa-shopping-cart"></i> Add To Cart
+                                </button>
+                                {% endif %}
 
                         </form>
                         <div class="reviews_product p-3 mb-2 ">

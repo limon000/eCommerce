@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,7 +51,9 @@ class Commande
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Article", cascade={"persist", "remove"})
      */
-    private $articles;
+    private $article;
+
+
 
     public function getId(): ?int
     {
@@ -128,15 +132,17 @@ class Commande
         return $this;
     }
 
-    public function getArticles(): ?Article
+    public function getArticle(): ?Article
     {
-        return $this->articles;
+        return $this->article;
     }
 
-    public function setArticles(?Article $articles): self
+    public function setArticle(?Article $article): self
     {
-        $this->articles = $articles;
+        $this->article = $article;
 
         return $this;
     }
+
+
 }

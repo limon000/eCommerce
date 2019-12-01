@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Recherche{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
@@ -32,11 +32,6 @@
 
 
                 <div class="row">
-                    {% for message in app.session.flashbag.get('error') %}
-                        <div class="alert alert-info">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
                     {% if resultat | length > 0 %}
                     {% for resultat in resultat %}
                         <div class="col-lg-4 col-md-6 mb-4">
@@ -46,6 +41,12 @@
                                     <h4 class="card-title">
                                         <a href="#">{{ resultat.nom }}</a>
                                     </h4>
+                                    {% if resultat.quantite == 0 %}
+                                        <span style="display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: red;">Sold Out</span>
+                                    {% endif %}
                                     <h5>{{ resultat.prix }} $</h5>
                                     <p class="card-text">{{ resultat.description }}</p>
                                     <a href="{{ path('panier_add', {id : resultat.id}) }}" class="btn btn-success float-right">
@@ -58,7 +59,11 @@
 
                     {% endfor %}
                     {% else %}
-                    <p>Aucun produit !</p>
+                        {% for message in app.session.flashbag.get('error') %}
+                            <div class="alert alert-info">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                     {% endif %}
 
                 </div>
