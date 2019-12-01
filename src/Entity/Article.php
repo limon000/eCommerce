@@ -68,10 +68,16 @@ class Article
      */
     private $reviews;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Details", mappedBy="articles")
+     */
+    private $details;
+
 
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->details = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,6 +218,37 @@ class Article
             // set the owning side to null (unless already changed)
             if ($review->getArticle() === $this) {
                 $review->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Details[]
+     */
+    public function getDetails(): Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(Details $detail): self
+    {
+        if (!$this->details->contains($detail)) {
+            $this->details[] = $detail;
+            $detail->setArticles($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetail(Details $detail): self
+    {
+        if ($this->details->contains($detail)) {
+            $this->details->removeElement($detail);
+            // set the owning side to null (unless already changed)
+            if ($detail->getArticles() === $this) {
+                $detail->setArticles(null);
             }
         }
 

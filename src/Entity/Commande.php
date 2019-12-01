@@ -18,15 +18,7 @@ class Commande
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $description;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -49,9 +41,16 @@ class Commande
     private $client;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Article", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Details", mappedBy="commandes")
      */
-    private $article;
+    private $details;
+
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
+
+
 
 
 
@@ -60,29 +59,6 @@ class Commande
         return $this->id;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
 
     public function getStatus(): ?string
     {
@@ -132,17 +108,37 @@ class Commande
         return $this;
     }
 
-    public function getArticle(): ?Article
+    /**
+     * @return Collection|Details[]
+     */
+    public function getDetails(): Collection
     {
-        return $this->article;
+        return $this->details;
     }
 
-    public function setArticle(?Article $article): self
+    public function addDetail(Details $detail): self
     {
-        $this->article = $article;
+        if (!$this->details->contains($detail)) {
+            $this->details[] = $detail;
+            $detail->setCommandes($this);
+        }
 
         return $this;
     }
+
+    public function removeDetail(Details $detail): self
+    {
+        if ($this->details->contains($detail)) {
+            $this->details->removeElement($detail);
+            // set the owning side to null (unless already changed)
+            if ($detail->getCommandes() === $this) {
+                $detail->setCommandes(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\DetailsRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
@@ -40,11 +41,14 @@ class HomeController extends AbstractController
      * @Route("/profile/{id}", name="account")
      * @IsGranted("ROLE_USER")
      */
-    public function account(Request $request,PaginatorInterface $paginator,Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
+    public function account(DetailsRepository $detailsRepo,Request $request,PaginatorInterface $paginator,Client $client,ReviewRepository $reviewRepo,CommandeRepository $comRepo): Response
     {
 
             $commande = $comRepo->findBy([
                 'client' => $client,
+            ]);
+            $details = $detailsRepo->findBy([
+               'commandes' => $commande
             ]);
 
             $review = $reviewRepo->findBy([
@@ -57,6 +61,7 @@ class HomeController extends AbstractController
             'client' => $client,
             'review' => $review,
             'commandes' => $pagination,
+            'details' => $details,
         ]);
 
     }

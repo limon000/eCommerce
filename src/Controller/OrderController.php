@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Details;
 use App\Repository\ArticleRepository;
 use App\Service\Panier\PanierService;
 use App\Service\Stripe\StripeClient;
@@ -41,28 +42,32 @@ class OrderController extends AbstractController
             }
 
             $stripeClient->createInvoice($user,true);
+
             $commande = new Commande();
             foreach ($panierService->getFullCart() as $item)
             {
+                $details = new Details();
                 $article = $articleRepo->findOneBy([
                     'id' => $item['article'],
                 ]);
                 $article->setQuantite($article->getQuantite()-$item['quantite']);
 
                 $commande->setClient($this->getUser()->getClient())
-                         ->setArticle($item['article'])
-                         ->setDescription($item['article']->getNom())
-                         ->setQuantity($item['quantite'])
                          ->setStatus("Completed")
                          ->setOrderDate(new \DateTime())
                          ->setOrderTotal($panierService->getTotal());
+                $manager->persist($commande);
+                $details->setArticles($item['article'])
+                        ->setCommandes($commande)
+                        ->setQuantite($item['quantite']);
+                $manager->persist($details);
             }
             $email = (new Email())
                 ->to($this->getUser()->getEmail())
                 ->from("aymenradhouen@gmail.com")
                 ->subject("Order Details")
                 ->text(
-                    sprintf("Description : %s , Quantity : %s , Status : %s ,  Order Total : %s", $commande->getDescription(), $commande->getQuantity(), $commande->getStatus(), $commande->getOrderTotal())
+                    sprintf("Status : %s ,  Order Total : %s",$commande->getStatus(), $commande->getOrderTotal())
                 );
             $mailer->send($email);
 
