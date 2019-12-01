@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,14 +64,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/resultats", name="search_results")
      */
-    public function search(Request $request,ObjectManager $manager,ArticleRepository $articleRepo)
+    public function search(Request $request,PaginatorInterface $paginator,ObjectManager $manager,ArticleRepository $articleRepo)
     {
         if($request->isMethod('GET')) {
             $search = $request->query->get('search');
-
-            $resultats = $articleRepo->findBy([
-                'nom' => $search,
-            ]);
+            $resultats = $articleRepo->search($search);
+            $pagination = $paginator->paginate($resultats,$request->query->getInt('page',1),6);
             if(!$resultats)
             {
                 $this->addFlash('error', 'Pas de resultat');
@@ -78,7 +77,7 @@ class HomeController extends AbstractController
         }
 
         return $this->render('article/recherche.html.twig',[
-            'resultat' => $resultats,
+            'resultat' => $pagination,
         ]);
     }
 

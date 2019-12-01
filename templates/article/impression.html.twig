@@ -3,6 +3,8 @@
 {% block title %}Impression{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link href="https//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 {% endblock %}
 
 {% block body %}
@@ -26,53 +28,54 @@
 
             </div>
 
-            <div class="col-lg-7">
+            <div class="col-lg-9">
 
                 <hr>
-
-
                 <div class="row">
                     {% if articles | length > 0 %}
                         {% for article in articles %}
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    <a href="{{ path('article', {id : article.id}) }}"><img class="card-img-top" src="uploads/{{ article.image }}" alt=""></a>
-                                    <div class="card-body">
-                                        <h4 class="card-title">
-                                            <a href="#">{{ article.nom }}</a>
-                                        </h4>
+                            <div class="col-md-4">
+                                <figure class="card card-product">
+                                    <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="uploads/{{ article.image }}"></a></div>
+                                    <figcaption class="info-wrap">
+                                        <h4 class="title"><a href="{{ path('article', {id : article.id}) }}">{{ article.nom }}</a></h4>
                                         {% if article.quantite == 0 %}
                                             <span style="display: inline-block;
     font-size: 14px;
     font-weight: 500;
     color: red;">Sold Out</span>
-                                        {% endif %}
-                                        <h5>{{ article.prix }} $</h5>
-                                        <p class="card-text">{{ article.description }}</p>
-                                        {% if article.quantite > 0 %}
-                                            <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right">
-                                                <i class="fa fa-shopping-cart mr-1"></i>
-                                                Ajouter
-                                            </a>
                                         {% else %}
-                                            <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-success float-right disabled">
-                                                <i class="fa fa-shopping-cart mr-1"></i>
-                                                Ajouter
-                                            </a>
+                                            <span style="display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #44a038;"
+                                            >In Stock</span>
                                         {% endif %}
-                                    </div>
-                                </div>
-                            </div>
+                                        <p class="desc">{{ article.description }}</p>
+                                    </figcaption>
+                                    <div class="bottom-wrap">
+                                        {% if article.quantite > 0 %}
+                                            <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-sm btn-primary float-right">Order Now</a>
+                                        {% else %}
+                                            <a href="{{ path('panier_add', {id : article.id}) }}" class="btn btn-sm btn-primary float-right disabled">Order Now</a>
+                                        {% endif %}
+                                        <div class="price-wrap h5">
+                                            <span class="price-new">{{ article.prix }} $</span>
+                                        </div> <!-- price-wrap.// -->
+                                    </div> <!-- bottom-wrap.// -->
+                                </figure>
+                            </div> <!-- col // -->
 
                         {% endfor %}
                     {% else %}
                         <p>Aucun produit !</p>
                     {% endif %}
                 </div>
-
-                <div class="navigation">
+                <div class="pagination">
                     {{ knp_pagination_render(articles) }}
                 </div>
+
+
             </div>
 
         </div>
