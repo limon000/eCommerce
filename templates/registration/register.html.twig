@@ -2,29 +2,26 @@
 
 {% block title %}Registration{% endblock %}
 
-{% block stylesheets %}
+{% block route %}
+    Registration
 {% endblock %}
 
 {% block body %}
     {{ form_start(registrationForm) }}
     <section class="login_box_area section_gap">
         <div class="container">
-            <div class="row" style="margin-left: 280px; width: 100%; ">
-                <div class="col-lg-6">
-                    <div class="login_form_inner" style="border: none;
-    border-bottom: 1px solid #cccccc;
-    border-radius: 0px;
-    outline: none;
-    box-shadow: none;">
+            <div class="row">
+                <div class="col-lg-7" style="margin: 0 auto 0 auto;">
+                    <div class="login_form_inner">
                         <h3>Authentification Information Details</h3>
                             <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Your username ....','class' : 'form-control'}}) }}
+                                {{ form_row(registrationForm.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Username ....','class' : 'form-control'}}) }}
                             </div>
                             <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
+                                {{ form_row(registrationForm.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Email ....','class' : 'form-control'}}) }}
                             </div>
                             <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.plainPassword.first,{'label' : 'Password', 'attr' : {'placeholder' : 'Your password ....','class' : 'form-control'}}) }}
+                                {{ form_row(registrationForm.plainPassword.first,{'label' : 'Password', 'attr' : {'placeholder' : 'Password ....','class' : 'form-control'}}) }}
                             </div>
                             <div class="col-md-12 form-group">
                                 {{ form_row(registrationForm.plainPassword.second,{'label' : 'Confirm password', 'attr' : {'placeholder' : ' ....','class' : 'form-control'}}) }}
