@@ -3,9 +3,11 @@
 {% block title %}Edit Login{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 {% endblock %}
 
+{% block route %}
+    Profile
+{% endblock %}
 {% block body %}
 
 
@@ -13,9 +15,10 @@
         <div class="row">
             <div class="col-md-3 ">
                 <div class="list-group ">
-                    <a href="#" class="list-group-item list-group-item-action active">Login Information</a>
+                    <a href="#login" class="list-group-item list-group-item-action active">Login Information</a>
                 </div>
             </div>
+           <div class="tab-pane" id="profile" style="width: 800px;">
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
@@ -29,29 +32,33 @@
                             <div class="col-md-12">
                             {{ form_start(form) }}
                                     <div class="form-group row">
+                                        <label for="username" class="col-4 col-form-label">Username</label>
                                         <div class="col-8">
-                                    {{ form_row(form.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Your username ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.loginName,{'label' : false, 'attr' : {'placeholder' : 'Your username ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="email" class="col-4 col-form-label">Email</label>
                                         <div class="col-8">
-                                    {{ form_row(form.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.email,{'label' : false, 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="password" class="col-4 col-form-label">Password</label>
                                         <div class="col-8">
-                                    {{ form_row(form.plainPassword,{'label' : 'Password', 'attr' : {'placeholder' : 'Your password ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.plainPassword.first,{'label' : false, 'attr' : {'placeholder' : 'Your password ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="confirmPassword" class="col-4 col-form-label">Confirm Password</label>
                                         <div class="col-8">
-                                    {{ form_row(form.confirm_password,{'label' : 'Confirm Password', 'attr' : {'placeholder' : 'Your password again ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.plainPassword.second,{'label' : false, 'attr' : {'placeholder' : 'Your password again ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div>
                                             <button name="submit" type="submit" class="btn btn-primary">Update</button>
-                                            <a href="{{ path('account', {id : app.user.client.id}) }}" class="btn btn-primary">Cancel</a>
+                                            <a href="{{ path('account') }}" class="btn btn-primary">Cancel</a>
                                         </div>
                                     </div>
                                     {{ form_end(form) }}
@@ -61,12 +68,12 @@
                     </div>
                 </div>
             </div>
+           </div>
         </div>
     </div>
 
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% endblock %}

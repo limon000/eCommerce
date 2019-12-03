@@ -3,8 +3,9 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block stylesheets %}
-<link href="https//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
+{% endblock %}
+{% block route %}
+    Profile
 {% endblock %}
 
 {% block body %}
@@ -13,9 +14,10 @@
         <div class="row">
             <div class="col-md-3 ">
                 <div class="list-group ">
-                    <a href="#" class="list-group-item list-group-item-action active">Profile</a>
+                    <a href="#profile" class="list-group-item list-group-item-action active">Profile</a>
                 </div>
             </div>
+            <div class="tab-pane" id="profile" style="width: 800px;">
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
@@ -25,49 +27,56 @@
                                 <hr>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-md-12">
-                            {{ form_start(form) }}
+                                {{ form_start(form) }}
                                     <div class="form-group row">
+                                        <label for="fullname" class="col-4 col-form-label">Fullname</label>
                                         <div class="col-8">
-                                    {{ form_row(form.fullname,{'label' : 'Fullname','label_attr' : {'class' : 'col-4 col-form-label'}, 'attr' : {'placeholder' : 'Your fullname ....','class' : 'form-control'}}) }}
+                                            {{ form_row(form.fullname,{'label' : false,'attr' : {'placeholder' : 'Your fullname ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="birthdate" class="col-4 col-form-label">Date Of Birth</label>
                                         <div class="col-8">
-                                    {{ form_row(form.birthdate,{'label' : 'Date of birth', 'attr' : {'class' : 'form-control'}}) }}
+                                    {{ form_row(form.birthdate,{'label' : false, 'attr' : {'class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="address1" class="col-4 col-form-label">Address 1</label>
                                         <div class="col-8">
-                                    {{ form_row(form.address1,{'label' : 'Address 1', 'attr' : {'placeholder' : 'Address Line 1 ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.address1,{'label' : false, 'attr' : {'placeholder' : 'Address Line 1 ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="address2" class="col-4 col-form-label">Address 2</label>
                                         <div class="col-8">
-                                    {{ form_row(form.address2,{'attr' : {'placeholder' : 'Address Line 2 ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.address2,{'label' : false,'attr' : {'placeholder' : 'Address Line 2 ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="city" class="col-4 col-form-label">City</label>
                                         <div class="col-8">
-                                    {{ form_row(form.city,{'attr' : {'placeholder' : 'City ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.city,{'label' : false,'attr' : {'placeholder' : 'City ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="state" class="col-4 col-form-label">State</label>
                                         <div class="col-8">
-                                    {{ form_row(form.state,{'attr' : {'placeholder' : 'State ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.state,{'label' : false,'attr' : {'placeholder' : 'State ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="postcode" class="col-4 col-form-label">Post Code</label>
                                         <div class="col-8">
-                                    {{ form_row(form.postcode,{'attr' : {'placeholder' : 'Post code ....','class' : 'form-control'}}) }}
+                                    {{ form_row(form.postcode,{'label' : false,'attr' : {'placeholder' : 'Post code ....','class' : 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div>
                                             <button name="submit" type="submit" class="btn btn-primary">Update</button>
                                         </div>
-                                        <a href="{{ path('account', {id : app.user.client.id}) }}" class="btn btn-primary">Cancel</a>
+                                        <a href="{{ path('account') }}" class="btn btn-primary">Cancel</a>
                                     </div>
                                     {{ form_end(form) }}
                             </div>
@@ -78,10 +87,9 @@
             </div>
         </div>
     </div>
-
+        </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% endblock %}

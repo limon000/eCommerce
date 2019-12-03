@@ -47,61 +47,7 @@ class SecurityController extends AbstractController
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 
-    /**
-     * @IsGranted("ROLE_USER")
-     * @Route("/profile/{id}/edit", name="profile_edit")
-     */
-    public function edit(Client $client,Request $request,EntityManagerInterface $manager)
-    {
-        $form = $this->createForm(ClientType::class , $client);
 
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($client);
-            $manager->flush();
-            $this->addFlash('success', 'Profile Updated !');
-            return $this->redirectToRoute('account');
-        }
-
-        return $this->render('home/profile.html.twig', [
-            'form' => $form->createView(),
-            'client' => $client,
-        ]);
-    }
-
-    /**
-     * @IsGranted("ROLE_USER")
-     * @Route("/profile/{id}/edit_login", name="profile_edit_login")
-     */
-    public function editAccount(UserPasswordEncoderInterface $passwordEncoder,User $user,Request $request,EntityManagerInterface $manager)
-    {
-        $form = $this->createForm(RegistrationFormType::class , $user);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $manager->persist($user);
-            $manager->flush();
-            $this->addFlash('success', 'Profile Updated !');
-            return $this->redirectToRoute('home');
-        }
-
-
-        return $this->render('home/editlogin.html.twig', [
-            'form' => $form->createView(),
-            'user' => $user,
-        ]);
-    }
 
     /**
      * @Route("/reset", name="reset")

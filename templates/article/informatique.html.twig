@@ -3,14 +3,12 @@
 {% block title %}Informatique{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link href="https//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 {% endblock %}
-
+{% block route %}
+    Categorie : Informatique
+{% endblock %}
 {% block body %}
     <div class="container">
-        <div class="bg-light p-3">
-            <h1>Les produits informatiques</h1>
-        </div>
         <div class="row">
 
             <div class="col-lg-3">
@@ -84,7 +82,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
 {% endblock %}

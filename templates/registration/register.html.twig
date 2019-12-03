@@ -7,47 +7,42 @@
 
 {% block body %}
     {{ form_start(registrationForm) }}
-
-    <div class="row" style="margin-left: 350px;">
-        <div class="col-md-8 col-md-offset-1">
-            <fieldset>
-                <legend>Authentification Information Details</legend>
-                <div style="width: 200%;">
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            {{ form_row(registrationForm.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Your username ....','class' : 'form-control'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            {{ form_row(registrationForm.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            {{ form_row(registrationForm.plainPassword,{'label' : 'Password', 'attr' : {'placeholder' : 'Your password ....','class' : 'form-control'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            {{ form_row(registrationForm.confirm_password,{'label' : 'Confirm password', 'attr' : {'placeholder' : ' ....','class' : 'form-control'}}) }}
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-sm-5 col-sm-offset-1">
-                            <div class="pull-right">
-                                <a href="{{ path('home') }}" class="btn btn-lg">Cancel</a>
-                                <button type="submit" class="btn btn-primary">Save</button>
+    <section class="login_box_area">
+        <div class="container">
+            <div class="row" style="margin-left: 280px; width: 100%; ">
+                <div class="col-lg-6">
+                    <div class="login_form_inner" style="border: none;
+    border-bottom: 1px solid #cccccc;
+    border-radius: 0px;
+    outline: none;
+    box-shadow: none;">
+                        <h3>Authentification Information Details</h3>
+                            <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Your username ....','class' : 'form-control'}}) }}
                             </div>
-                        </div>
+                            <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Your email ....','class' : 'form-control'}}) }}
+                            </div>
+                            <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.plainPassword.first,{'label' : 'Password', 'attr' : {'placeholder' : 'Your password ....','class' : 'form-control'}}) }}
+                            </div>
+                            <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.plainPassword.second,{'label' : 'Confirm password', 'attr' : {'placeholder' : ' ....','class' : 'form-control'}}) }}
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <button style="display: block;
+    border-radius: 0px;
+    line-height: 38px;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;" type="submit" value="submit" class="primary-btn">Sign up</button>
+                            </div>
                     </div>
                 </div>
-            </fieldset>
+            </div>
         </div>
-    </div>
-    </div>
+    </section>
 
     {{ form_end(registrationForm) }}
 {% endblock %}
