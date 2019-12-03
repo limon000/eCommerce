@@ -1387,7 +1387,7 @@
             "require": {
                 "php": "^7.2",
                 "symfony/event-dispatcher": "^3.4 || ^4.0",
-                "symfony/http-foundation": "4.3.8"
+                "symfony/http-foundation": "^3.4 || ^4.0"
             },
             "require-dev": {
                 "doctrine/mongodb-odm": "^2.0.0-RC1",
@@ -3414,7 +3414,7 @@
                 "symfony/lock": "~3.4|~4.0",
                 "symfony/mailer": "^4.3",
                 "symfony/messenger": "^4.3",
-                "symfony/mime": "4.3.8",
+                "symfony/mime": "^4.3",
                 "symfony/polyfill-intl-icu": "~1.0",
                 "symfony/process": "~3.4|~4.0",
                 "symfony/property-info": "~3.4|~4.0",
@@ -4565,7 +4565,7 @@
                 "symfony/inflector": "~3.4|~4.0"
             },
             "require-dev": {
-                "symfony/cache": "4.3.8"
+                "symfony/cache": "~3.4|~4.0"
             },
             "suggest": {
                 "psr/cache-implementation": "To cache access methods."
@@ -4788,7 +4788,7 @@
                 "symfony/security-core": "~4.3",
                 "symfony/security-csrf": "~4.2",
                 "symfony/security-guard": "~4.2",
-                "symfony/security-http": "4.3.8"
+                "symfony/security-http": "^4.3"
             },
             "conflict": {
                 "symfony/browser-kit": "<4.2",
