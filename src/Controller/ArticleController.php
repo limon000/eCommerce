@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class ArticleController extends AbstractController
 {
     /**
@@ -22,7 +23,7 @@ class ArticleController extends AbstractController
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
 
-        $article = $articleRepo->findBy([
+        $article = $articleRepo->findOneBy([
             'id' => $id
         ]);
 
@@ -40,7 +41,7 @@ class ArticleController extends AbstractController
         }
         return $this->render('article/show.html.twig',
             [
-                'articles' => $article,
+                'article' => $article,
                 'reviews' => $form->createView(),
            ]);
     }
