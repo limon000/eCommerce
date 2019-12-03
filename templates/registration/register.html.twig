@@ -14,17 +14,21 @@
                 <div class="col-lg-7" style="margin: 0 auto 0 auto;">
                     <div class="login_form_inner">
                         <h3>Authentification Information Details</h3>
-                            <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.loginName,{'label' : 'Username', 'attr' : {'placeholder' : 'Username ....','class' : 'form-control'}}) }}
+                        <label for="username" class="col-4 col-form-label">Username</label>
+                        <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.loginName,{'label' : false, 'attr' : {'placeholder' : 'Username ....','class' : 'form-control'}}) }}
                             </div>
-                            <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.email,{'label' : 'Email', 'attr' : {'placeholder' : 'Email ....','class' : 'form-control'}}) }}
+                        <label for="email" class="col-4 col-form-label">Email</label>
+                        <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.email,{'label' : false, 'attr' : {'placeholder' : 'Email ....','class' : 'form-control'}}) }}
                             </div>
-                            <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.plainPassword.first,{'label' : 'Password', 'attr' : {'placeholder' : 'Password ....','class' : 'form-control'}}) }}
+                        <label for="password" class="col-4 col-form-label">Password</label>
+                        <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.plainPassword.first,{'label' : false, 'attr' : {'placeholder' : 'Password ....','class' : 'form-control'}}) }}
                             </div>
-                            <div class="col-md-12 form-group">
-                                {{ form_row(registrationForm.plainPassword.second,{'label' : 'Confirm password', 'attr' : {'placeholder' : ' ....','class' : 'form-control'}}) }}
+                        <label for="confirm" class="col-4 col-form-label">Confirm Password</label>
+                        <div class="col-md-12 form-group">
+                                {{ form_row(registrationForm.plainPassword.second,{'label' : false, 'attr' : {'placeholder' : ' ....','class' : 'form-control'}}) }}
                             </div>
 
                             <div class="col-md-12 form-group">
@@ -35,6 +39,7 @@
     text-transform: uppercase;
     border: none;" type="submit" value="submit" class="primary-btn">Sign up</button>
                             </div>
+                        <br>
                     </div>
                 </div>
             </div>

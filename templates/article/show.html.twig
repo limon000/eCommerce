@@ -23,7 +23,8 @@
                             </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1">
-                        <form class="s_product_text" action="{{ path('panier_add', {id : article.id}) }}">
+
+                        <form class="s_product_text" action="{{ path('panier_add', {id : article.id}) }}" method="post">
                             <h3>{{ article.nom }}</h3>
                             <h2>{{ article.prix }}$</h2>
                             <ul class="list">
@@ -45,13 +46,13 @@
                                 during the winter.</p>
                             <div class="product_count">
                                 <label for="qty">Quantity:</label>
-                                <input type="number" name="quantity" id="quantity" min="1" max="{{ article.quantite }}" value="1" title="Quantity:" class="input-text qty">
+                                <input type="number" name="quantity" id="quantity" min="1" max="{{ article.quantite }}"  title="Quantity:" class="input-text qty">
                             </div>
                             <div class="card_area d-flex align-items-center">
                                 {% if article.quantite > 0 %}
-                                <button class="primary-btn" type="submit">Add To Cart</button>
+                                <button id="submit" class="primary-btn" type="submit">Add To Cart</button>
                                 {% else %}
-                                    <button class="primary-btn" type="submit" disabled>Add To Cart</button>
+                                    <button id="submit" class="primary-btn" type="submit" disabled>Add To Cart</button>
                                 {% endif %}
                             </div>
                         </form>

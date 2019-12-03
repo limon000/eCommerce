@@ -11,6 +11,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\Panier\PanierService;
 
 
 class ArticleController extends AbstractController
@@ -18,7 +19,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}", name="article")
      */
-    public function showArticle(ArticleRepository $articleRepo,$id,Request $request,ObjectManager $manager,Article $articlee)
+    public function showArticle(PanierService $panierService,ArticleRepository $articleRepo,$id,Request $request,ObjectManager $manager,Article $articlee)
     {
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
@@ -43,7 +44,8 @@ class ArticleController extends AbstractController
             [
                 'article' => $article,
                 'reviews' => $form->createView(),
-           ]);
+                'items' => $panierService->getFullCart(),
+            ]);
     }
 
     /**

@@ -46,14 +46,14 @@
                     </div>
                 </td>
                 <td data-th="Price">{{ item.article.prix }} $</td>
-                <form method="POST" action="{{ path('panier_add', {id : item.article.id}) }}">
+                <form id="form" method="POST" action="{{ path('panier_add', {id : item.article.id}) }}">
                 <td data-th="Quantity">
                     <input type="number" class="form-control text-center" name="quantity" id="quantity" min="1" max="{{ item.article.quantite }}" value="{{ item.quantite }}">
                 </td>
                 <td data-th="Subtotal" class="text-center">{{ item.article.prix * item.quantite }} $</td>
                 <td class="actions" data-th="">
-                    <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                    </form>
+                    <button id="submit" type="submit" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                </form>
                     <a href="{{ path('panier_remove', {id : item.article.id}) }}">
                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                     </a>
