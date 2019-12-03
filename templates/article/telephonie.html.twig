@@ -2,9 +2,10 @@
 
 {% block title %}Telephonie{% endblock %}
 {% block stylesheets %}
-    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link href="https//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{% endblock %}
+{% block route %}
+    Categorie : Telephonie
 {% endblock %}
 
 {% block body %}
@@ -84,10 +85,4 @@
 
 
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 {% endblock %}

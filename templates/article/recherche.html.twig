@@ -4,12 +4,11 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 {% endblock %}
-
+{% block route %}
+    Search Results
+{% endblock %}
 {% block body %}
     <div class="container">
-        <div class="bg-light p-3">
-            <h1>Resultat de la recherche :</h1>
-        </div>
         <div class="row">
 
             <div class="col-lg-3">
@@ -83,9 +82,5 @@
     </div>
 
 
-
-{% endblock %}
-
-{% block javascripts %}
 
 {% endblock %}
