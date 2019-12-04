@@ -153,7 +153,6 @@
                                             <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Articles</th>
                                                 <th>Status</th>
                                                 <th>Order Date</th>
                                                 <th>Order Total</th>
@@ -162,12 +161,7 @@
                                             <tbody>
                                             {% for commande in commandes %}
                                                 <tr>
-                                                    <td>{{ commande.id }}</td>
-                                                    <td>
-                                                        {% for detail in details %}
-                                                        {{ detail.articles.nom }},
-                                                        {% endfor %}
-                                                    </td>
+                                                    <td><a href="{{ path('confirm',{id : commande.id}) }}">{{ commande.id }}</a></td>
                                                     <td>{{ commande.status }}</td>
                                                     <td>{{ commande.orderDate|date("d/m/Y") }}</td>
                                                     <td>{{ commande.orderTotal }} $</td>

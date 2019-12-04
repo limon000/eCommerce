@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\Details;
 use App\Repository\ArticleRepository;
+use App\Repository\ClientRepository;
+use App\Repository\CommandeRepository;
+use App\Repository\DetailsRepository;
 use App\Service\Panier\PanierService;
 use App\Service\Stripe\StripeClient;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -84,6 +87,26 @@ class OrderController extends AbstractController
 
         return $this->render('payment/payment.html.twig',[
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
+        ]);
+    }
+
+    /**
+     * @Route("/commande/{id}",name="confirm")
+     */
+    public function comfirmation(ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
+    {
+        $client = $clientRepo->findOneBy([
+           'id' => $this->getUser()->getClient()->getId(),
+        ]);
+
+        $detail = $detailRepo->findBy([
+            'commandes' => $commande,
+        ]);
+
+        return $this->render('order/order.html.twig',[
+            'commande' => $commande,
+            'client' => $client,
+            'details' => $detail,
         ]);
     }
 }

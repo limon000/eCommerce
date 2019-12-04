@@ -1,20 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Confirmation{% endblock %}
+{% block route %}
+    Confirmation
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/PhpstormProjects/commerce/projet1/src/Controller/OrderController.php'|file_link(0) }}">src/Controller/OrderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/PhpstormProjects/commerce/projet1/templates/order/order.html.twig'|file_link(0) }}">templates/order/payment.html.twig</a></code></li>
-    </ul>
-</div>
+    <section class="order_details section_gap">
+        <div class="container">
+            <h3 class="title_confirmation">Thank you. Your order has been received.</h3>
+            <div class="row order_d_inner">
+                <div class="col-lg-4">
+                    <div class="details_item">
+                        <h4>Order Info</h4>
+                        <ul class="list">
+                            <li><span>Order number</span> : {{ commande.id }}</li>
+                            <li><span>Date</span> : {{ commande.orderDate|date("d/m/Y") }}</li>
+                            <li><span>Total</span> : {{ commande.orderTotal }} $</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="details_item">
+                        <h4>Shipping Address</h4>
+                        <ul class="list">
+                            <li><span>Fullname</span> : {{ client.fullname }}</li>
+                            <li><span>Address 1</span> : {{ client.address1 }}</li>
+                            <li><span>Address 2</span> : {{ client.address2 }}</li>
+                            <li><span>City </span> : {{ client.city }}</li>
+                            <li><span>State</span> : {{ client.state }}</li>
+                            <li><span>Post Code</span> : {{ client.postcode }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="order_details_table">
+                <h2>Order Details</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for detail in details %}
+                        <tr>
+                            <td>
+                                <p>{{ detail.articles.nom }}</p>
+                            </td>
+                            <td>
+                                <h5>x {{ detail.quantite }}</h5>
+                            </td>
+                            <td>
+                                <p>{{ detail.articles.prix*detail.quantite }}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                <h4>Total</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>{{ commande.orderTotal }} $</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
