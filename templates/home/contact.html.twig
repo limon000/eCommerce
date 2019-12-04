@@ -11,21 +11,55 @@
 
 {% block body %}
 
+    <!--================Contact Area =================-->
+    <section class="contact_area section_gap_bottom">
+        <div class="container">
+            <div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13" data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
+                 data-mlat="40.701083" data-mlon="-74.1522848">
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="contact_info">
+                        <div class="info_item">
+                            <i class="lnr lnr-home"></i>
+                            <h6>Tunis, Tunisia</h6>
+                            <p>Carthage</p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-phone-handset"></i>
+                            <h6>25000001</h6>
+                            <p>Lundi->Vendredi</p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-envelope"></i>
+                            <h6>aymennradhouenn@gmail.com</h6>
+                            <p>Send us your query anytime!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    {{ form_start(form,{'attr' : {'class' : 'row contact_form'}}) }}
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(form.name,{'label' : false, 'attr' : {'placeholder' : 'Enter your name','class' : 'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.email,{'label' : false, 'attr' : {'placeholder' : 'Enter email address','class' : 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(form.message,{'label' : false, 'attr' : {'placeholder' : 'Enter Message','class' : 'form-control','rows' : '1'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <button type="submit" value="submit" class="primary-btn">Send Message</button>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
 
-    <div class="contact-clean">
-        {{ form_start(form) }}
-        <h2 class="text-center">Contact us</h2>
-        <div class="form-group">
-            {{ form_row(form.name,{'label' : false, 'attr' : {'placeholder' : 'Name','class' : 'form-control'}}) }}
         </div>
-        <div class="form-group">
-            {{ form_row(form.email,{'label' : false, 'attr' : {'placeholder' : 'Email','class' : 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_row(form.message,{'label' : false, 'attr' : {'placeholder' : 'Message','class' : 'form-control'}}) }}
-        </div>
-        <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
-        {{ form_end(form) }}
-    </div>
+    </section>
 
 {% endblock %}
