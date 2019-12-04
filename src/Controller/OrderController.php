@@ -11,7 +11,6 @@ use App\Service\Panier\PanierService;
 use App\Service\Stripe\StripeClient;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -102,12 +101,6 @@ class OrderController extends AbstractController
         $client = $clientRepo->findOneBy([
            'id' => $this->getUser()->getClient()->getId(),
         ]);
-
-        if($client != $commande)
-        {
-            return $this->redirectToRoute('home');
-        }
-
 
         $detail = $detailRepo->findBy([
             'commandes' => $commande,
