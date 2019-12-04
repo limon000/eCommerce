@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Client;
-use App\Entity\User;
 use App\Form\ClientType;
 use App\Form\ContactType;
 use App\Form\RegistrationFormType;
