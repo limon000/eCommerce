@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +26,13 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user", name="user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(PaginatorInterface $paginator,Request $request,UserRepository $userRepository): Response
     {
+        $user = $userRepository->findAll();
+        $pagination = $paginator->paginate($user,$request->query->getInt('page',1),6);
+
         return $this->render('admin/user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $pagination,
         ]);
     }
 
