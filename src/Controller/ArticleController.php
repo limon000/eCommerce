@@ -34,6 +34,10 @@ class ArticleController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            if(!$this->getUser())
+            {
+                return $this->redirectToRoute('app_login');
+            }
             $review->setCreatedAt(new \DateTime())
                    ->setArticle($articlee)
                    ->setUsername($this->getUser()->getLoginName())
