@@ -57,8 +57,8 @@
                         <div class="head">Stock</div>
                         <form action="#">
                             <ul>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Available</label></li>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Sold Out</label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="available" name="color" value="available"><label for="black">Available</label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="soldout" name="color" value="soldout"><label for="balckleather">Sold Out</label></li>
                             </ul>
                         </form>
                     </div>
@@ -87,7 +87,7 @@
                         {% for article in articles %}
                             <div class="col-md-4">
                                 <figure class="card card-product">
-                                    <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="uploads/{{ article.image }}"></a></div>
+                                    <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="/uploads/{{ article.image }}"></a></div>
                                     <figcaption class="info-wrap">
                                         <h4 class="title"><a href="{{ path('article', {id : article.id}) }}">{{ article.nom }}</a></h4>
                                         {% if article.quantite == 0 %}

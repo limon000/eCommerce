@@ -3,7 +3,6 @@
 {% block title %}Article Information{% endblock %}
 {% block stylesheets %}
     <link href="{{ asset('css/shop-item.css') }}" rel="stylesheet">
-
 {% endblock %}
 
 {% block route %}
@@ -161,6 +160,7 @@
 
                                 </div>
                                 {% endfor %}
+
                             </div>
                             <div class="col-lg-6">
                                 <div class="review_box">
@@ -174,7 +174,6 @@
                                         <li><i class="fa fa-star" data-index="4"></i></li>
                                     </ul>
                                     <br>
-                                    <input id="inp" type="text" value="" hidden>
                                     <div class="col-md-12">
                                         {{ form_start(reviews) }}
                                         <div class="form-group">
@@ -185,7 +184,6 @@
                                             <button id="submit" type="submit" value="submit" class="primary-btn">Submit Now</button>
                                         </div>
                                     {{ form_end(reviews) }}
-
                                 </div>
                             </div>
                         </div>

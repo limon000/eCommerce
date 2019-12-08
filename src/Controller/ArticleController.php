@@ -9,7 +9,6 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Panier\PanierService;
@@ -20,17 +19,14 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}", name="article")
      */
-    public function showArticle(PanierService $panierService,ArticleRepository $articleRepo,$id,Request $request,ObjectManager $manager,Article $articlee)
+    public function showArticle(PanierService $panierService,Article $article,Request $request,ObjectManager $manager)
     {
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
 
-        $article = $articleRepo->findOneBy([
-            'id' => $id
-        ]);
-
 
         $form->handleRequest($request);
+
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -39,13 +35,13 @@ class ArticleController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
             $review->setCreatedAt(new \DateTime())
-                   ->setArticle($articlee)
+                   ->setArticle($article)
                    ->setUsername($this->getUser()->getLoginName())
                    ->setRating(3);
             $manager->persist($review);
             $manager->flush();
             return $this->redirectToRoute('article', [
-               'id' => $id
+               'id' => $article->getId(),
             ]);
         }
         return $this->render('article/show.html.twig',
