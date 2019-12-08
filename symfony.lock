@@ -380,6 +380,9 @@
             "./tests/.gitignore"
         ]
     },
+    "symfony/polyfill-apcu": {
+        "version": "v1.13.1"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.12.0"
     },

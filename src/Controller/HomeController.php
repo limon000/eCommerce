@@ -30,8 +30,8 @@ class HomeController extends AbstractController
      */
     public function home(PaginatorInterface $paginator,ArticleRepository $artcileRepo,Request $request)
     {
+
         $articles = $artcileRepo->findAll();
-        $article = $artcileRepo->findAll();
 
         shuffle($articles);
         $pagination = $paginator->paginate($articles,$request->query->getInt('page',1),6);
@@ -39,7 +39,6 @@ class HomeController extends AbstractController
 
         return $this->render('home/home.html.twig',[
             'articles' => $pagination,
-            'article' => $article,
         ]);
     }
 

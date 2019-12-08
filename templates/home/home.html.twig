@@ -87,7 +87,7 @@
                         {% for article in articles %}
                             <div class="col-md-4">
                                 <figure class="card card-product">
-                                    <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="/uploads/{{ article.image }}"></a></div>
+                                    <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="uploads/{{ article.image }}"></a></div>
                                     <figcaption class="info-wrap">
                                         <h4 class="title"><a href="{{ path('article', {id : article.id}) }}">{{ article.nom }}</a></h4>
                                         {% if article.quantite == 0 %}
