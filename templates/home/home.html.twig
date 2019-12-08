@@ -31,28 +31,37 @@
                 <div class="sidebar-categories">
                     <div class="head">Browse Categories</div>
                     <ul class="main-categories">
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                        class="lnr lnr-arrow-right"></span>Informatique<span class="number">(53)</span></a>
+                        <li class="main-nav-list"><a href="{{ path('informatique') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Informatique</a>
                         </li>
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                        class="lnr lnr-arrow-right"></span>Telephonie<span class="number">(53)</span></a>
+                        <li class="main-nav-list"><a href="{{ path('telephonie') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Telephonie</a>
                         </li>
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                        class="lnr lnr-arrow-right"></span>TV | Photo & Son<span class="number">(53)</span></a>
+                        <li class="main-nav-list"><a href="{{ path('tv') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>TV | Photo & Son</a>
                         </li>
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                        class="lnr lnr-arrow-right"></span>Gaming<span class="number">(53)</span></a>
+                        <li class="main-nav-list"><a href="{{ path('gaming') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Gaming</a>
                         </li>
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                        class="lnr lnr-arrow-right"></span>Impression<span class="number">(53)</span></a>
+                        <li class="main-nav-list"><a href="{{ path('impression') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Impression</a>
                         </li>
-                        <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-                                        class="lnr lnr-arrow-right"></span>Reseaux & Securite<span class="number">(53)</span></a>
+                        <li class="main-nav-list"><a href="{{ path('reseau') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Reseaux & Securite</a>
                         </li>
                     </ul>
                 </div>
                 <div class="sidebar-filter mt-50">
                     <div class="top-filter-head">Product Filters</div>
+                    <div class="common-filter">
+                        <div class="head">Stock</div>
+                        <form action="#">
+                            <ul>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Available</label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Sold Out</label></li>
+                            </ul>
+                        </form>
+                    </div>
                     <div class="common-filter">
                         <div class="head">Price</div>
                         <div class="price-range-area">

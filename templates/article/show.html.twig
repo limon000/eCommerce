@@ -94,17 +94,17 @@
                                     <div class="col-6">
                                         <div class="rating_list">
                                             <h3>Based on {{ article.reviews| length }} Reviews</h3>
-                                            <ul class="list">
-                                                <li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                                <li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                                <li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                                <li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                                <li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+                                            <ul class="">
+                                                <li>5 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i
+                                                                class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i> (01)</li>
+                                                <li>4 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i
+                                                                class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: gray"></i> (01)</li>
+                                                <li>3 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i
+                                                                class="fa fa-star" style="color: gray"></i><i class="fa fa-star" style="color: gray"></i> (01)</li>
+                                                <li>2 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: gray"></i><i
+                                                                class="fa fa-star" style="color: gray"></i><i class="fa fa-star" style="color: gray"></i> (01)</li>
+                                                <li>1 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: gray"></i><i class="fa fa-star" style="color: gray"></i><i
+                                                                class="fa fa-star" style="color: gray"></i><i class="fa fa-star" style="color: gray"></i> (01)</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -120,11 +120,31 @@
                                                 <hr>
                                                 <h4>{{ review.username }}</h4>
                                                 <h5>{{ review.createdAt|date('Y-m-d H:i:s') }}</h5>
+                                                {% if review.rating == 1 %}
+                                                <i class="fa fa-star"></i>
+                                                    {% endif %}
+                                                {% if review.rating == 2 %}
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                {% endif %}
+                                                {% if review.rating == 3 %}
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                {% endif %}
+                                                {%  if review.rating == 4 %}
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                {% endif %}
+                                                {% if review.rating == 5  %}
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
+                                                    {% endif %}
                                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                                     {% if review.username == app.user.loginName %}
                                                         <a style="float: right;" href="{{ path('review_remove', {id : review.id}) }}" class="btn btn-danger btn-sm">
@@ -146,25 +166,26 @@
                                 <div class="review_box">
                                     <h4>Add a Review</h4>
                                     <p>Your Rating:</p>
-                                    <ul class="list">
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <ul name="rate" class="list">
+                                        <li><i class="fa fa-star" data-index="0"></i></li>
+                                        <li><i class="fa fa-star" data-index="1"></i></li>
+                                        <li><i class="fa fa-star" data-index="2"></i></li>
+                                        <li><i class="fa fa-star" data-index="3"></i></li>
+                                        <li><i class="fa fa-star" data-index="4"></i></li>
                                     </ul>
-                                    <p>Outstanding</p>
-                                    {{ form_start(reviews) }}
                                     <br>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
+                                    <input id="inp" type="text" value="" hidden>
+                                    <div class="col-md-12">
+                                        {{ form_start(reviews,{'attr' : {'id' : 'myform'}}) }}
+                                        <div class="form-group">
                                                 {{ form_row(reviews.content,  {'label' : false,'attr' : {'placeholder' : "Review",'class' : 'form-control'}}) }}
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-right">
-                                            <button type="submit" value="submit" class="primary-btn">Submit Now</button>
+                                            <button id="submit" type="submit" value="submit" class="primary-btn">Submit Now</button>
                                         </div>
                                     {{ form_end(reviews) }}
+
                                 </div>
                             </div>
                         </div>
@@ -178,5 +199,54 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        var ratedIndex = -1;
+        $(document).ready((function () {
+            resetStarColors();
+
+            if(localStorage.getItem('ratedIndex') != null)
+            {
+                setStars(parseInt(localStorage.getItem('ratedIndex')));
+            }
+            $('.list .fa').on('click', function () {
+                ratedIndex = parseInt($(this).data('index'));
+                localStorage.setItem('ratedIndex',ratedIndex);
+                saveToTheDB();
+            });
+
+            $('.list .fa').mouseover(function () {
+                resetStarColors();
+                var currentIndex = parseInt($(this).data('index'));
+                setStars(currentIndex);
+            });
+
+            $('.list .fa').mouseleave(function () {
+                resetStarColors();
+                if(ratedIndex != -1)
+                    setStars(ratedIndex);
+            });
+
+        }));
+        
+        function saveToTheDB() {
+                $.ajax({
+                    url: "{{ path('article',{id : article.id}) }}",
+                    method: "POST",
+                    dataType: 'json',
+                    data: {
+                        ratedIndex: ratedIndex
+                    }
+                });
+
+        }
+
+        function setStars(max) {
+            for(var i=0; i <= max; i++)
+                $('.list .fa:eq('+i+')').css('color', 'yellow');
+        }
+        function resetStarColors() {
+            $('.list .fa').css('color' , 'grey');
+        }
+    </script>
 
 {% endblock %}

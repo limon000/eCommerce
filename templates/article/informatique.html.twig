@@ -10,17 +10,31 @@
 {% block body %}
     <div class="container">
         <div class="row">
-
-            <div class="col-lg-3">
+             <hr>
+            <div class="col-xl-3 col-lg-4 col-md-5">
                 <hr>
-                <h1 class="my-4">Categories</h1>
-                <div class="list-group">
-                    <a href="{{ path('informatique') }}" class="list-group-item">Informatique</a>
-                    <a href="{{ path('telephonie') }}" class="list-group-item">Telephonie</a>
-                    <a href="{{ path('tv') }}" class="list-group-item">TV | Photo & Son</a>
-                    <a href="{{ path('gaming') }}" class="list-group-item">Gaming</a>
-                    <a href="{{ path('impression') }}" class="list-group-item">Impression</a>
-                    <a href="{{ path('reseau') }}" class="list-group-item">Reseaux & Securite</a>
+                <div class="sidebar-categories">
+                    <div class="head">Browse Categories</div>
+                    <ul class="main-categories">
+                        <li class="main-nav-list"><a href="{{ path('informatique') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Informatique</a>
+                        </li>
+                        <li class="main-nav-list"><a href="{{ path('telephonie') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Telephonie</a>
+                        </li>
+                        <li class="main-nav-list"><a href="{{ path('tv') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>TV | Photo & Son</a>
+                        </li>
+                        <li class="main-nav-list"><a href="{{ path('gaming') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Gaming</a>
+                        </li>
+                        <li class="main-nav-list"><a href="{{ path('impression') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Impression</a>
+                        </li>
+                        <li class="main-nav-list"><a href="{{ path('reseau') }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
+                                        class="lnr lnr-arrow-right"></span>Reseaux & Securite</a>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
