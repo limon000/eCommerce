@@ -8,9 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Client
 {
+    use TimeStamp;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
