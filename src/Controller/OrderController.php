@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\Details;
+use App\Form\CancelType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\DetailsRepository;
@@ -45,7 +46,7 @@ class OrderController extends AbstractController
                 $stripeClient->createInvoiceItem($item['article']->getPrix() * $item['quantite']* 100,$user,$item['article']->getNom());
             }
 
-            $stripeClient->createInvoice($user,true);
+            $invoice = $stripeClient->createInvoice($user,true);
 
             $commande = new Commande();
             foreach ($panierService->getFullCart() as $item)
@@ -59,7 +60,8 @@ class OrderController extends AbstractController
                 $commande->setClient($this->getUser()->getClient())
                          ->setStatus("Completed")
                          ->setOrderDate(new \DateTime())
-                         ->setOrderTotal($panierService->getTotal());
+                         ->setOrderTotal($panierService->getTotal())
+                         ->setInvoiceId($invoice->charge);
                 $manager->persist($commande);
                 $details->setArticles($item['article'])
                         ->setCommandes($commande)
@@ -95,8 +97,11 @@ class OrderController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/commande/{id}",name="confirm")
      */
-    public function comfirmation(ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
+    public function comfirmation(PanierService $panierService,ObjectManager $manager,StripeClient $stripeClient,Request $request,ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
     {
+        \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+
+        $user = $this->getUser();
 
         $client = $clientRepo->findOneBy([
            'id' => $this->getUser()->getClient()->getId(),
@@ -106,10 +111,23 @@ class OrderController extends AbstractController
             'commandes' => $commande,
         ]);
 
+        $form = $this->createForm(CancelType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted())
+        {
+            $stripeClient->createRefund($commande->getInvoiceId(),$commande->getOrderTotal()*100);
+            $commande->setStatus("Canceled");
+            $manager->persist($commande);
+            $manager->flush();
+
+        }
+
+
         return $this->render('order/order.html.twig',[
             'commande' => $commande,
             'client' => $client,
             'details' => $detail,
+            'form' => $form->createView(),
         ]);
     }
 }

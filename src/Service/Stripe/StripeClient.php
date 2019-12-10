@@ -41,17 +41,29 @@ class StripeClient
             'description' => $description,
         ]);
     }
+
     public function createInvoice(User $user, $payImmediately =true)
     {
         $invoice = \Stripe\Invoice::create(array(
             'customer' => $user->getStripeCustomerId(),
         ));
+
         if($payImmediately)
         {
             $invoice->pay();
         }
         return $invoice;
 
+    }
+
+
+    public function createRefund($charge,$amount)
+    {
+
+        return \Stripe\Refund::create([
+            'charge' => $charge,
+            'amount' => $amount,
+        ]);
     }
 
 }

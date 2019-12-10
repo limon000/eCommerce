@@ -45,6 +45,11 @@ class Commande
      */
     private $details;
 
+    /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private $invoiceId;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -135,6 +140,18 @@ class Commande
                 $detail->setCommandes(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInvoiceId(): ?string
+    {
+        return $this->invoiceId;
+    }
+
+    public function setInvoiceId(?string $invoiceId): self
+    {
+        $this->invoiceId = $invoiceId;
 
         return $this;
     }

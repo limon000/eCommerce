@@ -8,7 +8,11 @@
 {% block body %}
     <section class="order_details section_gap">
         <div class="container">
+            {% if commande.status == "Completed" %}
             <h3 class="title_confirmation">Thank you. Your order has been received.</h3>
+            {% else %}
+            <h3 class="title_confirmation" style="color: red;">You order is canceled.</h3>
+            {% endif %}
             <div class="row order_d_inner">
                 <div class="col-lg-4">
                     <div class="details_item">
@@ -72,6 +76,14 @@
                         </tr>
                         </tbody>
                     </table>
+                    {% if commande.status == "Completed" %}
+                    {{ form_start(form) }}
+                    {{ form_row(form,{'label' : false,'attr' : {'class' : 'btn btn-danger'}}) }}
+                    {{ form_end(form) }}
+                    {% else %}
+
+                    {% endif %}
+
                 </div>
             </div>
         </div>
