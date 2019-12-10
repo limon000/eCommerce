@@ -10,11 +10,6 @@
 
 {% block body %}
     <div class="container">
-        {% for message in app.session.flashbag.get('PaymentSuccess') %}
-            <div class="alert alert-info">
-                {{ message }}
-            </div>
-        {% endfor %}
         {% for message in app.session.flashbag.get('logged') %}
             <div class="alert alert-info">
                 {{ message }}

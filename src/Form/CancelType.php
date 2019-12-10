@@ -12,7 +12,12 @@ class CancelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Cancel Order',SubmitType::class)
+            ->add('submit',SubmitType::class,[
+                'label' => 'Cancel Order',
+                'attr' => [
+                    'class' => 'btn btn-danger'
+                ]
+            ])
         ;
     }
 

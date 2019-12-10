@@ -82,8 +82,7 @@ class OrderController extends AbstractController
 
 
             $session->clear('panier');
-            $this->addFlash('PaymentSuccess', 'Order Complete !');
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('confirm',['id' => $commande->getId()]);
         }
 
 
@@ -121,7 +120,6 @@ class OrderController extends AbstractController
             $manager->flush();
 
         }
-
 
         return $this->render('order/order.html.twig',[
             'commande' => $commande,
