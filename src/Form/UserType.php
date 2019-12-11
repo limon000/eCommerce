@@ -22,7 +22,8 @@ class UserType extends AbstractType
             ->add('roles', CollectionType::class, [
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
-                'choices' => [
+                    'label' => false,
+                    'choices' => [
                     'USER' => 'ROLE_USER',
                     'ADMIN' => 'ROLE_ADMIN',
                 ],

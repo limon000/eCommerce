@@ -9,6 +9,8 @@ use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -148,8 +150,10 @@ class AdminController extends AbstractController
         ]);
 
         $somme = $comRepo->orderSum("Completed");
+
         $client = $clientRepo->findAll();
         $pagination = $paginator->paginate($client,$request->query->getInt('page',1),6);
+        $commande = $comRepo->findAll();
 
 
 
@@ -161,7 +165,11 @@ class AdminController extends AbstractController
             'canceled' => $comCanceled,
             'somme' => $somme,
             'clients'=> $pagination,
+            'commande' => $commande,
         ]);
     }
+
+
+
 
 }
