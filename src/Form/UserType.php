@@ -23,8 +23,8 @@ class UserType extends AbstractType
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
                 'choices' => [
-                    'ROLE_USER' => 'ROLE_USER',
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                    'USER' => 'ROLE_USER',
+                    'ADMIN' => 'ROLE_ADMIN',
                 ],
             ],
           ])

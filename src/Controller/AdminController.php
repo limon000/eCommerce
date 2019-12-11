@@ -6,6 +6,8 @@ use App\Entity\Client;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
+use App\Repository\ClientRepository;
+use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -134,15 +136,31 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function admin(UserRepository $userRepo,ArticleRepository $articleRepo) : Response
+    public function admin(Request $request,PaginatorInterface $paginator,ClientRepository $clientRepo,CommandeRepository $comRepo,UserRepository $userRepo,ArticleRepository $articleRepo) : Response
     {
         $users = $userRepo->findAll();
         $articles = $articleRepo->findAll();
+        $comCompleted = $comRepo->findBy([
+            'status' => "Completed"
+        ]);
+        $comCanceled = $comRepo->findBy([
+            'status' => "Canceled"
+        ]);
+
+        $somme = $comRepo->orderSum("Completed");
+        $client = $clientRepo->findAll();
+        $pagination = $paginator->paginate($client,$request->query->getInt('page',1),6);
+
+
 
 
         return $this->render('admin/home_admin.html.twig',[
             'users' => $users,
             'articles' => $articles,
+            'completed' => $comCompleted,
+            'canceled' => $comCanceled,
+            'somme' => $somme,
+            'clients'=> $pagination,
         ]);
     }
 

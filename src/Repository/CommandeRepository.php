@@ -19,22 +19,18 @@ class CommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, Commande::class);
     }
 
-    // /**
-    //  * @return Commande[] Returns an array of Commande objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function orderSum($status)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('SUM(c.orderTotal)')
+            ->andWhere('c.status = :status')
+            ->setParameter('status',$status)
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Commande
