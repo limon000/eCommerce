@@ -95,16 +95,16 @@
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                     <tr role="row">
-                                        <th class="sorting_asc" onclick="sortTable()" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 197px;">Name</th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 197px;">Name</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 302px;">Orders ({{ commande|length }})</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 145px;">Inscription Date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 145px;">Birth Date</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th rowspan="1" colspan="1">Name</th>
                                         <th rowspan="1" colspan="1">Orders ({{ commande|length }})</th>
-                                        <th rowspan="1" colspan="1">Inscription Date</th>
+                                        <th rowspan="1" colspan="1">Birth Date</th>
                                     </tfoot>
                                     <tbody>
                                     {% for client in clients %}
