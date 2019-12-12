@@ -9,6 +9,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Panier\PanierService;
@@ -28,16 +29,18 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
 
+
         if($form->isSubmitted() && $form->isValid())
         {
             if(!$this->getUser())
             {
                 return $this->redirectToRoute('app_login');
             }
+            $rate = $request->request->get('rating');
             $review->setCreatedAt(new \DateTime())
                    ->setArticle($article)
                    ->setUsername($this->getUser()->getLoginName())
-                   ->setRating(3);
+                   ->setRating($rate);
             $manager->persist($review);
             $manager->flush();
             return $this->redirectToRoute('article', [

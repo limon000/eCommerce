@@ -3,6 +3,43 @@
 {% block title %}Article Information{% endblock %}
 {% block stylesheets %}
     <link href="{{ asset('css/shop-item.css') }}" rel="stylesheet">
+
+    <style>
+        .rating{
+            overflow: hidden;
+            vertical-align: bottom;
+            display: inline-block;
+            width: auto;
+            height: 30px;
+        }
+        .rating > input{
+            opacity: 0;
+            margin-right: -100%;
+        }
+        .rating > label{
+            position: relative;
+            display: block;
+            float: right;
+            background: url('{{ asset('img/star-off-big.png') }}');
+            background-size: 30px 30px;
+        }
+        .rating > label:before{
+            display: block;
+            opacity: 0;
+            content: '';
+            width: 30px;
+            height: 30px;
+            background: url('{{ asset('img/star-on-big.png') }}');
+            background-size: 30px 30px;
+            transition: opacity 0.2s linear;
+        }
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before,
+        .rating:not(:hover) > :checked ~ label:before{
+            opacity: 1;
+        }
+    </style>
+
 {% endblock %}
 
 {% block route %}
@@ -164,18 +201,26 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="review_box">
+                                    {{ form_start(reviews) }}
                                     <h4>Add a Review</h4>
-                                    <p>Your Rating:</p>
-                                    <ul name="rate" class="list">
-                                        <li><i class="fa fa-star" data-index="0"></i></li>
-                                        <li><i class="fa fa-star" data-index="1"></i></li>
-                                        <li><i class="fa fa-star" data-index="2"></i></li>
-                                        <li><i class="fa fa-star" data-index="3"></i></li>
-                                        <li><i class="fa fa-star" data-index="4"></i></li>
-                                    </ul>
+                                     <span class="rating">
+                                        <input id="rating5" type="radio" name="rating" value="5">
+                                        <label for="rating5">5</label>
+                                        <input id="rating4" type="radio" name="rating" value="4">
+                                        <label for="rating4">4</label>
+                                        <input id="rating3" type="radio" name="rating" value="3">
+                                        <label for="rating3">3</label>
+                                        <input id="rating2" type="radio" name="rating" value="2">
+                                        <label for="rating2">2</label>
+                                        <input id="rating1" type="radio" name="rating" value="1">
+                                        <label for="rating1">1</label>
+                                    </span>
+
                                     <br>
                                     <div class="col-md-12">
-                                        {{ form_start(reviews) }}
+
+
+
                                         <div class="form-group">
                                                 {{ form_row(reviews.content,  {'label' : false,'attr' : {'placeholder' : "Review",'class' : 'form-control'}}) }}
                                             </div>
@@ -183,9 +228,9 @@
                                         <div class="col-md-12 text-right">
                                             <button id="submit" type="submit" value="submit" class="primary-btn">Submit Now</button>
                                         </div>
-                                    {{ form_end(reviews) }}
                                 </div>
                             </div>
+                            {{ form_end(reviews) }}
                         </div>
                     </div>
                 </div>
@@ -197,54 +242,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        var ratedIndex = -1;
-        $(document).ready((function () {
-            resetStarColors();
-
-            if(localStorage.getItem('ratedIndex') != null)
-            {
-                setStars(parseInt(localStorage.getItem('ratedIndex')));
-            }
-            $('.list .fa').on('click', function () {
-                ratedIndex = parseInt($(this).data('index'));
-                localStorage.setItem('ratedIndex',ratedIndex);
-                saveToTheDB();
-            });
-
-            $('.list .fa').mouseover(function () {
-                resetStarColors();
-                var currentIndex = parseInt($(this).data('index'));
-                setStars(currentIndex);
-            });
-
-            $('.list .fa').mouseleave(function () {
-                resetStarColors();
-                if(ratedIndex != -1)
-                    setStars(ratedIndex);
-            });
-
-        }));
-        
-        function saveToTheDB() {
-                $.ajax({
-                    url: "{{ path('article',{id : article.id}) }}",
-                    method: "POST",
-                    dataType: 'json',
-                    data: {
-                        ratedIndex: ratedIndex
-                    }
-                });
-
-        }
-
-        function setStars(max) {
-            for(var i=0; i <= max; i++)
-                $('.list .fa:eq('+i+')').css('color', 'yellow');
-        }
-        function resetStarColors() {
-            $('.list .fa').css('color' , 'grey');
-        }
-    </script>
 
 {% endblock %}
