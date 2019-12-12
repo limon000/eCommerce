@@ -22,6 +22,7 @@ class ClientType extends AbstractType
             ])
             ->add('address1', TextType::class)
             ->add('address2', TextType::class)
+            ->add('country',TextType::class)
             ->add('city', TextType::class)
             ->add('state', TextType::class)
             ->add('postcode', TextType::class)

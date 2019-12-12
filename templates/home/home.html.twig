@@ -52,8 +52,9 @@
                         <div class="head">Stock</div>
                         <form action="#">
                             <ul>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="available" name="color" value="available"><label for="black">Available</label></li>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="soldout" name="color" value="soldout"><label for="balckleather">Sold Out</label></li>
+                                <li class="filter-list"><input class="pixel-radio" onclick="filterSelection('all')" type="radio" id="available" name="color" value="available"><label for="all">All</label></li>
+                                <li class="filter-list"><input class="pixel-radio" onclick="filterSelection('available')" type="radio" id="available" name="color" value="available"><label for="available">Available</label></li>
+                                <li class="filter-list"><input class="pixel-radio" onclick="filterSelection('soldout')" type="radio" id="soldout" name="color" value="soldout"><label for="soldout">Sold Out</label></li>
                             </ul>
                         </form>
                     </div>
@@ -127,6 +128,10 @@
         </div>
 
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
 
 {% endblock %}
 
