@@ -24,7 +24,7 @@ class AdminArticleController extends AbstractController
     public function index(PaginatorInterface $paginator,Request $request,ArticleRepository $articleRepository): Response
     {
         $article = $articleRepository->findAll();
-        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),6);
+        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),10);
 
         return $this->render('admin/article/index.html.twig', [
             'articles' => $pagination,

@@ -50,11 +50,11 @@
                     <div class="top-filter-head">Product Filters</div>
                     <div class="common-filter">
                         <div class="head">Stock</div>
-                        <form action="#">
-                            <ul>
-                                <li class="filter-list"><input class="pixel-radio" onclick="filterSelection('all')" type="radio" id="available" name="color" value="available"><label for="all">All</label></li>
-                                <li class="filter-list"><input class="pixel-radio" onclick="filterSelection('available')" type="radio" id="available" name="color" value="available"><label for="available">Available</label></li>
-                                <li class="filter-list"><input class="pixel-radio" onclick="filterSelection('soldout')" type="radio" id="soldout" name="color" value="soldout"><label for="soldout">Sold Out</label></li>
+                        <form>
+                            <ul id="ull">
+                                <li class="filter-list"><input class="pixel-radio"  type="radio" id="all" name="color" value="all"><label for="all">All</label></li>
+                                <li class="filter-list"><input class="pixel-radio"  type="radio" id="available" name="color" value="available"><label for="available">Available</label></li>
+                                <li class="filter-list"><input class="pixel-radio"  type="radio" id="soldout" name="color" value="soldout"><label for="soldout">Sold Out</label></li>
                             </ul>
                         </form>
                     </div>
@@ -90,13 +90,12 @@
                                             <span style="display: inline-block;
     font-size: 14px;
     font-weight: 500;
-    color: red;">Sold Out</span>
+    color: red;" class="aymen">Sold Out</span>
                                             {% else %}
                                                 <span style="display: inline-block;
     font-size: 14px;
     font-weight: 500;
-    color: #44a038;"
-                                                >In Stock</span>
+    color: #44a038;" class="aymen">In Stock</span>
                                         {% endif %}
                                         <p class="desc">{{ article.description }}</p>
                                     </figcaption>
