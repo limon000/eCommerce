@@ -1199,11 +1199,11 @@
 		background: $white;
 		&.active {
 			@extend .gradient-bg;
-			color: $white;	
+			color: $white;
 		}
 		&:hover {
 			@extend .gradient-bg;
-			color: $white;	
+			color: $white;
 		}
 	}
 	.dot-dot {

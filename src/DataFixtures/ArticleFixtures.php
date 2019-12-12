@@ -15,12 +15,12 @@ class ArticleFixtures extends Fixture
         {
             $article = new Article();
             $article
-                    ->setNom("DVD")
+                    ->setNom("Routeur")
                     ->setPrix(12)
-                    ->setCategorie("informatique")
+                    ->setCategorie("Reseaux & Securite")
                     ->setImage("5bb5e4bca14feef7168c9c641e184582.jpeg")
                     ->setQuantite(20)
-                    ->setDescription("Un tres bon DVD")
+                    ->setDescription("Un bon routeur")
                     ->setCreatedAt(new \DateTime())
                     ->setUserCreated("aymen000");
             $manager->persist($article);

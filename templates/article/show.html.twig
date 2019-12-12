@@ -123,14 +123,14 @@
                                     <div class="col-6">
                                         <div class="box_total">
                                             <h5>Overall</h5>
-                                            <h4>4.0</h4>
+                                            <h4>{{ moyenne|number_format(2, '.', ',') }}</h4>
                                             <h6>({{ article.reviews| length }} Reviews)</h6>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="rating_list">
                                             <h3>Based on {{ article.reviews| length }} Reviews</h3>
-                                            <ul class="">
+                                            <ul class="list">
                                                 <li>5 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i
                                                                 class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i> (01)</li>
                                                 <li>4 Star <i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i
@@ -150,8 +150,6 @@
                                 <div class="review_list">
                                     <div class="review_item">
                                         <div class="media">
-
-
                                             <div class="media-body">
                                                 <hr>
                                                 <h4>{{ review.username }}</h4>
@@ -203,7 +201,8 @@
                                 <div class="review_box">
                                     {{ form_start(reviews) }}
                                     <h4>Add a Review</h4>
-                                     <span class="rating">
+                                    <h6>Your rating</h6>
+                                    <span class="rating">
                                         <input id="rating5" type="radio" name="rating" value="5">
                                         <label for="rating5">5</label>
                                         <input id="rating4" type="radio" name="rating" value="4">
@@ -214,13 +213,8 @@
                                         <label for="rating2">2</label>
                                         <input id="rating1" type="radio" name="rating" value="1">
                                         <label for="rating1">1</label>
-                                    </span>
-
-                                    <br>
+                                    </span><br>
                                     <div class="col-md-12">
-
-
-
                                         <div class="form-group">
                                                 {{ form_row(reviews.content,  {'label' : false,'attr' : {'placeholder' : "Review",'class' : 'form-control'}}) }}
                                             </div>

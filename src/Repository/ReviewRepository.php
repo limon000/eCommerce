@@ -19,6 +19,16 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
+
+    public function avg()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('AVG(r.rating)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
     // /**
     //  * @return Review[] Returns an array of Review objects
     //  */

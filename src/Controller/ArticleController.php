@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Review;
 use App\Form\ReviewType;
 use App\Repository\ArticleRepository;
+use App\Repository\ReviewRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,15 +21,14 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}", name="article")
      */
-    public function showArticle(PanierService $panierService,Article $article,Request $request,ObjectManager $manager)
+    public function showArticle(ReviewRepository $reviewRepo,PanierService $panierService,Article $article,Request $request,ObjectManager $manager)
     {
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
 
-
         $form->handleRequest($request);
-
-
+        $avg = $reviewRepo->avg();
+        $stars = $reviewRepo->findAll();
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -52,6 +52,8 @@ class ArticleController extends AbstractController
                 'article' => $article,
                 'reviews' => $form->createView(),
                 'items' => $panierService->getFullCart(),
+                'moyenne' => $avg,
+                'stars' => $stars,
             ]);
     }
 
