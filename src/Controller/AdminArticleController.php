@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,13 +20,12 @@ class AdminArticleController extends AbstractController
     /**
      * @Route("/articles", name="article_index", methods={"GET"})
      */
-    public function index(PaginatorInterface $paginator,Request $request,ArticleRepository $articleRepository): Response
+    public function index(ArticleRepository $articleRepository): Response
     {
         $article = $articleRepository->findAll();
-        $pagination = $paginator->paginate($article,$request->query->getInt('page',1),10);
 
         return $this->render('admin/article/index.html.twig', [
-            'articles' => $pagination,
+            'articles' => $article,
         ]);
     }
 

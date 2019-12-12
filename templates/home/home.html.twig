@@ -81,6 +81,7 @@
                 <div class="row">
                     {% if articles | length > 0 %}
                         {% for article in articles %}
+
                             <div class="col-md-4">
                                 <figure class="card card-product">
                                     <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="uploads/{{ article.image }}"></a></div>
@@ -109,9 +110,8 @@
                                             <span class="price-new">{{ article.prix }} $</span>
                                         </div> <!-- price-wrap.// -->
                                     </div> <!-- bottom-wrap.// -->
-                                </figure>
+                                    </figure>
                             </div> <!-- col // -->
-
                         {% endfor %}
                     {% else %}
                         <p>Aucun produit !</p>
@@ -131,6 +131,10 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable();
+        } );
+    </script>
 {% endblock %}
 

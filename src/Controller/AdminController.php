@@ -9,9 +9,6 @@ use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,13 +27,12 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_SUPER_ADMIN")
      * @Route("/user", name="user_index", methods={"GET"})
      */
-    public function index(PaginatorInterface $paginator,Request $request,UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository): Response
     {
         $user = $userRepository->findAll();
-        $pagination = $paginator->paginate($user,$request->query->getInt('page',1),6);
 
         return $this->render('admin/user/index.html.twig', [
-            'users' => $pagination,
+            'users' => $user,
         ]);
     }
 
@@ -138,7 +134,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function admin(Request $request,PaginatorInterface $paginator,ClientRepository $clientRepo,CommandeRepository $comRepo,UserRepository $userRepo,ArticleRepository $articleRepo) : Response
+    public function admin(ClientRepository $clientRepo,CommandeRepository $comRepo,UserRepository $userRepo,ArticleRepository $articleRepo) : Response
     {
         $users = $userRepo->findAll();
         $articles = $articleRepo->findAll();
@@ -152,7 +148,6 @@ class AdminController extends AbstractController
         $somme = $comRepo->orderSum("Completed");
 
         $client = $clientRepo->findAll();
-        $pagination = $paginator->paginate($client,$request->query->getInt('page',1),6);
         $commande = $comRepo->findAll();
 
 
@@ -164,7 +159,7 @@ class AdminController extends AbstractController
             'completed' => $comCompleted,
             'canceled' => $comCanceled,
             'somme' => $somme,
-            'clients'=> $pagination,
+            'clients'=> $client,
             'commande' => $commande,
         ]);
     }
