@@ -7,6 +7,7 @@ use App\Entity\Details;
 use App\Form\CancelType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
+use App\Repository\CommandeRepository;
 use App\Repository\DetailsRepository;
 use App\Service\Panier\PanierService;
 use App\Service\Stripe\StripeClient;
@@ -85,8 +86,6 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('confirm',['id' => $commande->getId()]);
         }
 
-
-
         return $this->render('payment/payment.html.twig',[
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
         ]);
@@ -96,7 +95,7 @@ class OrderController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/commande/{id}",name="confirm")
      */
-    public function comfirmation(ObjectManager $manager,StripeClient $stripeClient,Request $request,ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
+    public function comfirmation(CommandeRepository $commandeRepo,ArticleRepository $articleRepo,ObjectManager $manager,StripeClient $stripeClient,Request $request,ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
     {
         \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
 
@@ -109,11 +108,22 @@ class OrderController extends AbstractController
             'commandes' => $commande,
         ]);
 
+
+
         $form = $this->createForm(CancelType::class);
         $form->handleRequest($request);
         if($form->isSubmitted())
         {
-            // TODO: Increase quantity when cancel order.
+            foreach ($detail as $item)
+            {
+                $article = $item->getArticles();
+                $articleQte = $item->getArticles()->getQuantite();
+                $comQte = $item->getQuantite();
+                $article->setQuantite($articleQte+$comQte);
+                $manager->persist($article);
+                $manager->flush();
+            }
+
             $stripeClient->createRefund($commande->getInvoiceId(),$commande->getOrderTotal()*100);
             $commande->setStatus("Canceled");
             $manager->persist($commande);
