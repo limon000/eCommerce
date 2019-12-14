@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\Commande;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\DetailsRepository;
 use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -161,6 +164,36 @@ class AdminController extends AbstractController
             'somme' => $somme,
             'clients'=> $client,
             'commande' => $commande,
+        ]);
+    }
+
+    /**
+     * @Route("/orders", name="orders")
+     */
+    public function order(CommandeRepository $order)
+    {
+        $orders = $order->findAll();
+        return $this->render('admin/order/index.html.twig',[
+            'orders' => $orders,
+        ]);
+    }
+
+    /**
+     * @Route("/orders/detail/{id}", name="orderDetail")
+     */
+    public function orderDetail(ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
+    {
+        $client = $clientRepo->findOneBy([
+            'id' => $this->getUser()->getClient()->getId(),
+        ]);
+
+        $detail = $detailRepo->findBy([
+            'commandes' => $commande,
+        ]);
+        return $this->render('admin/order/detail.html.twig',[
+            'commande' => $commande,
+            'client' => $client,
+            'details' => $detail,
         ]);
     }
 

@@ -1,0 +1,42 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+    <h1><li class="fas fa-luggage-cart"></li> Orders</h1>
+    <table class="table" id="dataTable">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Client</th>
+            <th>Status</th>
+            <th>Order Date</th>
+            <th>Order Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td><a href="{{ path('orderDetail',{id : order.id}) }}">{{ order.id }}</a></td>
+                <td>{{ order.client.fullname }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.orderDate|date("Y/m/d H:m:s") }}</td>
+                <td>{{ order.orderTotal }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable();
+        } );
+    </script>
+{% endblock %}

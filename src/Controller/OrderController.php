@@ -95,7 +95,7 @@ class OrderController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/commande/{id}",name="confirm")
      */
-    public function comfirmation(CommandeRepository $commandeRepo,ArticleRepository $articleRepo,ObjectManager $manager,StripeClient $stripeClient,Request $request,ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
+    public function comfirmation(ObjectManager $manager,StripeClient $stripeClient,Request $request,ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
     {
         \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
 
