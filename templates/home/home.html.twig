@@ -81,9 +81,8 @@
                 <div class="row">
                     {% if articles | length > 0 %}
                         {% for article in articles %}
-
                             <div class="col-md-4">
-                                <figure class="card card-product">
+                            <figure class="card card-product">
                                     <div class="img-wrap"><a href="{{ path('article', {id : article.id}) }}"><img src="uploads/{{ article.image }}"></a></div>
                                     <figcaption class="info-wrap">
                                         <h4 class="title"><a href="{{ path('article', {id : article.id}) }}">{{ article.nom }}</a></h4>
@@ -111,11 +110,13 @@
                                         </div> <!-- price-wrap.// -->
                                     </div> <!-- bottom-wrap.// -->
                                     </figure>
-                            </div> <!-- col // -->
+                    </div> <!-- col // -->
                         {% endfor %}
                     {% else %}
                         <p>Aucun produit !</p>
                     {% endif %}
+
+
                 </div>
                 <div class="pagination active">
                     {{ knp_pagination_render(articles) }}

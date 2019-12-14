@@ -23,12 +23,18 @@ class ArticleController extends AbstractController
      */
     public function showArticle(ReviewRepository $reviewRepo,PanierService $panierService,Article $article,Request $request,ObjectManager $manager)
     {
+
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
 
         $form->handleRequest($request);
-        $avg = $reviewRepo->avg();
-        $stars = $reviewRepo->findAll();
+        $avg = $reviewRepo->avg($article);
+        $star5 = $reviewRepo->longeur(5,$article);
+        $star4 = $reviewRepo->longeur(4,$article);
+        $star3 = $reviewRepo->longeur(3,$article);
+        $star2 = $reviewRepo->longeur(2,$article);
+        $star1 = $reviewRepo->longeur(1,$article);
+
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -53,7 +59,11 @@ class ArticleController extends AbstractController
                 'reviews' => $form->createView(),
                 'items' => $panierService->getFullCart(),
                 'moyenne' => $avg,
-                'stars' => $stars,
+                'star5' => $star5,
+                'star4' => $star4,
+                'star3' => $star3,
+                'star2' => $star2,
+                'star1' => $star1,
             ]);
     }
 

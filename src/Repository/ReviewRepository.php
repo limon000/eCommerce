@@ -20,31 +20,29 @@ class ReviewRepository extends ServiceEntityRepository
     }
 
 
-    public function avg()
+    public function avg($article)
     {
         return $this->createQueryBuilder('r')
             ->select('AVG(r.rating)')
+            ->andWhere('r.article = :article')
+            ->setParameter('article',$article)
             ->getQuery()
             ->getSingleScalarResult()
             ;
     }
 
-    // /**
-    //  * @return Review[] Returns an array of Review objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function longeur($value,$article)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('r.rating')
+            ->andWhere('r.rating = :value')
+            ->andWhere('r.article = :article')
+            ->setParameter('value', $value)
+            ->setParameter('article', $article)
             ->getQuery()
-            ->getResult()
+            ->getScalarResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Review

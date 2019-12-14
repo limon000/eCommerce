@@ -155,7 +155,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <table class="table">
+                                        <table class="table" id="dataTable">
                                             <thead>
                                             <tr>
                                                 <th>Id</th>
@@ -203,5 +203,9 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable();
+        } );
+    </script>
 {% endblock %}
