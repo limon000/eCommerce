@@ -54,7 +54,7 @@ class User implements UserInterface
     private $loginName;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Client")
      */
     private $client;
 
