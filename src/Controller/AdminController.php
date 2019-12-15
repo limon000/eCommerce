@@ -181,18 +181,14 @@ class AdminController extends AbstractController
     /**
      * @Route("/orders/detail/{id}", name="orderDetail")
      */
-    public function orderDetail(ClientRepository $clientRepo,DetailsRepository $detailRepo,Commande $commande)
+    public function orderDetail(DetailsRepository $detailRepo,Commande $commande)
     {
-        $client = $clientRepo->findOneBy([
-            'id' => $this->getUser()->getClient()->getId(),
-        ]);
 
         $detail = $detailRepo->findBy([
             'commandes' => $commande,
         ]);
         return $this->render('admin/order/detail.html.twig',[
             'commande' => $commande,
-            'client' => $client,
             'details' => $detail,
         ]);
     }
