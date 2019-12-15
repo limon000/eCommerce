@@ -37,6 +37,7 @@ class RegistrationController extends AbstractController
             $client->setBirthdate(new \DateTime('now'));
             $client->setAddress1("null");
             $client->setAddress2("null");
+            $client->setCountry("null");
             $client->setCity("null");
             $client->setState("null");
             $client->setPostcode("null");
