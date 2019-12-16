@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Commande;
 use App\Entity\User;
 use App\Form\CancelType;
+use App\Form\ClientType;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
@@ -58,9 +59,11 @@ class AdminController extends AbstractController
             $client->setBirthdate(new \DateTime('now'));
             $client->setAddress1("null");
             $client->setAddress2("null");
+            $client->setCountry("null");
             $client->setCity("null");
             $client->setState("null");
             $client->setPostcode("null");
+            $client->setCreatedAt(new \DateTime());
             $user->setClient($client);
 
             $user->setPassword(
@@ -70,6 +73,7 @@ class AdminController extends AbstractController
                 )
             );
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($client);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -192,8 +196,6 @@ class AdminController extends AbstractController
             'commandes' => $commande,
         ]);
 
-
-
         $form = $this->createForm(CancelType::class);
         $form->handleRequest($request);
         if($form->isSubmitted())
@@ -218,6 +220,56 @@ class AdminController extends AbstractController
         return $this->render('admin/order/detail.html.twig',[
             'commande' => $commande,
             'details' => $detail,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/client/{id}",name="clientDetail")
+     */
+    public function clientDetail(Client $client,Request $request,ObjectManager $manager)
+    {
+        $form = $this->createForm(ClientType::class,$client);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($client);
+            $manager->flush();
+        }
+        return $this->render('admin/clientDetail.html.twig',[
+            'form' => $form->createView(),
+            'client' => $client,
+        ]);
+    }
+
+    /**
+     * @Route("/client/{id}/orders",name="clientOrders")
+     */
+    public function clientOrder(Client $client,CommandeRepository $order)
+    {
+        $orders = $order->findBy([
+            'client' => $client,
+        ]);
+        return $this->render('admin/clientOrder.html.twig',[
+            'orders' => $orders,
+        ]);
+    }
+
+
+    /**
+     * @Route("/account/{id}",name="accountUser")
+     */
+    public function account(User $user,Request $request,ObjectManager $manager)
+    {
+        $form = $this->createForm(UserType::class,$user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($form);
+            $manager->flush();
+        }
+        return $this->render('admin/account.html.twig',[
             'form' => $form->createView(),
         ]);
     }

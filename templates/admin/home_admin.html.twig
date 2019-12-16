@@ -100,9 +100,10 @@
                                     <thead>
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 197px;">Name</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 302px;">Orders ({{ commande|length }})</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Orders: activate to sort column ascending" style="width: 100px;">Orders ({{ commande|length }})</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="isDeleted: activate to sort column ascending" style="width: 145px;">isDeleted</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 145px;">Inscription Date</th>
+                                        <th style="width: 120px;">Action</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -111,6 +112,7 @@
                                         <th rowspan="1" colspan="1">Orders ({{ commande|length }})</th>
                                         <th rowspan="1" colspan="1">isDeleted</th>
                                         <th rowspan="1" colspan="1">Inscription Date</th>
+                                        <th rowspan="1" colspan="1">Action</th>
                                     </tfoot>
                                     <tbody>
                                     {% for client in clients %}
@@ -125,6 +127,10 @@
                                             {% endif %}
                                         </td>
                                         <td>{{ client.createdAt|date("d/m/Y H:m") }}</td>
+                                        <td>
+                                            <a href="{{ path('clientDetail',{id : client.id}) }}" class="btn btn-primary">Edit</a>
+                                            <a href="{{ path('clientOrders',{id : client.id}) }}" class="btn btn-primary">Orders</a>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>
