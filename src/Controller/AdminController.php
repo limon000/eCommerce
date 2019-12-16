@@ -142,21 +142,4 @@ class AdminController extends AbstractController
     }
 
 
-    /**
-     * @Route("/account/{id}",name="accountUser")
-     */
-    public function account(User $user,Request $request,ObjectManager $manager)
-    {
-        $form = $this->createForm(UserType::class,$user);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($form);
-            $manager->flush();
-        }
-        return $this->render('admin/account.html.twig',[
-            'form' => $form->createView(),
-        ]);
-    }
-
 }

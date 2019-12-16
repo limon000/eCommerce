@@ -34,14 +34,19 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_SUPER_ADMIN")
+     * @Route("/account/{id}",name="accountDetail")
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/user/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder,User $user = null): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+        if(!$user)
+        {
+            $user = new User();
+        }
+
         $client = new Client();
-        $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
