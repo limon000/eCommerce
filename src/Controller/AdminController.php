@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Commande;
 use App\Entity\User;
+use App\Form\CancelType;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\DetailsRepository;
 use App\Repository\UserRepository;
+use App\Service\Stripe\StripeClient;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -125,7 +127,9 @@ class AdminController extends AbstractController
     public function delete(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $client = $user->getClient()->setIsDeleted(true);
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($client);
             $entityManager->remove($user);
             $entityManager->flush();
         }
@@ -155,7 +159,6 @@ class AdminController extends AbstractController
 
 
 
-
         return $this->render('admin/home_admin.html.twig',[
             'users' => $users,
             'articles' => $articles,
@@ -181,15 +184,41 @@ class AdminController extends AbstractController
     /**
      * @Route("/orders/detail/{id}", name="orderDetail")
      */
-    public function orderDetail(DetailsRepository $detailRepo,Commande $commande)
+    public function orderDetail(ObjectManager $manager,StripeClient $stripeClient,Request $request,DetailsRepository $detailRepo,Commande $commande)
     {
+        \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
 
         $detail = $detailRepo->findBy([
             'commandes' => $commande,
         ]);
+
+
+
+        $form = $this->createForm(CancelType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted())
+        {
+            foreach ($detail as $item)
+            {
+                $article = $item->getArticles();
+                $articleQte = $item->getArticles()->getQuantite();
+                $comQte = $item->getQuantite();
+                $article->setQuantite($articleQte+$comQte);
+                $manager->persist($article);
+                $manager->flush();
+            }
+
+            $stripeClient->createRefund($commande->getInvoiceId(),$commande->getOrderTotal()*100);
+            $commande->setStatus("Canceled");
+            $manager->persist($commande);
+            $manager->flush();
+
+        }
+
         return $this->render('admin/order/detail.html.twig',[
             'commande' => $commande,
             'details' => $detail,
+            'form' => $form->createView(),
         ]);
     }
 

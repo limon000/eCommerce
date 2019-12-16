@@ -76,7 +76,6 @@
             </div>
 
             <div class="col-lg-9">
-
                 <hr>
                 <div class="row">
                     {% if articles | length > 0 %}
@@ -115,8 +114,6 @@
                     {% else %}
                         <p>Aucun produit !</p>
                     {% endif %}
-
-
                 </div>
                 <div class="pagination active">
                     {{ knp_pagination_render(articles) }}

@@ -101,21 +101,30 @@
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 197px;">Name</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 302px;">Orders ({{ commande|length }})</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 145px;">Birth Date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="isDeleted: activate to sort column ascending" style="width: 145px;">isDeleted</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 145px;">Inscription Date</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th rowspan="1" colspan="1">Name</th>
                                         <th rowspan="1" colspan="1">Orders ({{ commande|length }})</th>
-                                        <th rowspan="1" colspan="1">Birth Date</th>
+                                        <th rowspan="1" colspan="1">isDeleted</th>
+                                        <th rowspan="1" colspan="1">Inscription Date</th>
                                     </tfoot>
                                     <tbody>
                                     {% for client in clients %}
                                     <tr role="row" class="odd">
                                         <td class="sorting_1">{{ client.fullname }}</td>
                                         <td>{{ client.commandes|length }}</td>
-                                        <td>{{ client.birthdate|date("d/m/Y") }}</td>
+                                        <td>
+                                            {% if client.isDeleted == true %}
+                                                Deleted
+                                            {% else %}
+                                                Enabled
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ client.createdAt|date("d/m/Y H:m") }}</td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>

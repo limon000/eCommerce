@@ -80,6 +80,13 @@
                         </tr>
                         </tbody>
                     </table>
+                    {% if commande.status == "Completed" %}
+                        {{ form_start(form) }}
+                        {{ form_row(form.submit) }}
+                        {{ form_end(form) }}
+                    {% else %}
+
+                    {% endif %}
 
                 </div>
             </div>

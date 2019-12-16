@@ -41,6 +41,7 @@ class RegistrationController extends AbstractController
             $client->setCity("null");
             $client->setState("null");
             $client->setPostcode("null");
+            $client->setCreatedAt(new \DateTime());
             $user->setClient($client);
 
             $email = (new TemplatedEmail())

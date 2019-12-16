@@ -67,8 +67,13 @@
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
+                            {% if not is_granted('ROLE_USER') %}
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Account</a>
+                            {% else %}
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">{{ app.user.LoginName }}</a>
+                            {% endif %}
                             <ul class="dropdown-menu">
                                 {% if not is_granted('ROLE_USER') %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login/Register</a></li>
