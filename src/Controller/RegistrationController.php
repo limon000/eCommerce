@@ -45,7 +45,7 @@ class RegistrationController extends AbstractController
             $user->setClient($client);
 
             $email = (new TemplatedEmail())
-                  ->from('aymenradhouen@gmail.com')
+                  ->from('aymennradhouenn@gmail.com')
                   ->to($user->getEmail())
                   ->subject("welcome")
                   ->htmlTemplate('email/welcome.html.twig');
