@@ -32,10 +32,8 @@ class HomeController extends AbstractController
     {
 
         $articles = $artcileRepo->findAll();
-
         shuffle($articles);
         $pagination = $paginator->paginate($articles,$request->query->getInt('page',1),6);
-
 
         return $this->render('home/home.html.twig',[
             'articles' => $pagination,

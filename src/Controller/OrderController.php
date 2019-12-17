@@ -93,7 +93,7 @@ class OrderController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/commande/{id}",name="confirm")
+     * @Route("/profile/commande/{id}",name="confirm")
      */
     public function comfirmation(ObjectManager $manager,StripeClient $stripeClient,Request $request,DetailsRepository $detailRepo,Commande $commande)
     {

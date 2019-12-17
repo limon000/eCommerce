@@ -45,6 +45,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th scope="col">Image</th>
                             <th scope="col">Product</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
@@ -53,6 +54,9 @@
                         <tbody>
                         {% for detail in details %}
                             <tr>
+                                <td>
+                                    <p><img src="/uploads/{{ detail.articles.image }}" width="50" height="50"></p>
+                                </td>
                                 <td>
                                     <p>{{ detail.articles.nom }}</p>
                                 </td>
@@ -66,7 +70,10 @@
                         {% endfor %}
                         <tr>
                             <td>
-                                <h4>Total</h4>
+                                <h5>Total</h5>
+                            </td>
+                            <td>
+                                <h4></h4>
                             </td>
                             <td>
                                 <h5></h5>
