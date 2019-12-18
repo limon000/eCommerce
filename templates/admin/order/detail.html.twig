@@ -3,8 +3,9 @@
 {% block title %}Confirmation{% endblock %}
 
 {% block body %}
+    <div class="container">
     <section class="order_details section_gap">
-        <div class="container">
+
             {% if commande.status == "Completed" %}
                 <h3 class="title_confirmation" style="color: green;">Order Completed.</h3>
             {% else %}
@@ -94,6 +95,6 @@
 
                 </div>
             </div>
-        </div>
     </section>
+    </div>
 {% endblock %}
