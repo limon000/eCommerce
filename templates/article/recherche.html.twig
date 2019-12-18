@@ -63,6 +63,10 @@
                                             >In Stock</span>
                                         {% endif %}
                                         <p class="desc">{{ resultat.description }}</p>
+                                        <div class="rating-wrap">
+                                            <div class="label-rating">{{ article.reviews|length }} Reviews</div>
+                                            <div class="label-rating">{{ article.details|length }} Orders </div>
+                                        </div>
                                     </figcaption>
                                     <div class="bottom-wrap">
                                         {% if resultat.quantite > 0 %}

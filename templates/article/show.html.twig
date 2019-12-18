@@ -49,7 +49,6 @@
 {% block body %}
 
 <div class="container">
-    <hr>
         <div class="product_image_area">
             <div class="container">
                 <div class="row s_product_inner">
@@ -59,7 +58,6 @@
                             </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1">
-
                         <form class="s_product_text" action="{{ path('panier_add', {id : article.id}) }}" method="post">
                             <h3>{{ article.nom }}</h3>
                             <h2>{{ article.prix }}$</h2>
