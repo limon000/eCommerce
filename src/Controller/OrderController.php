@@ -103,8 +103,6 @@ class OrderController extends AbstractController
             'commandes' => $commande,
         ]);
 
-
-
         $form = $this->createForm(CancelType::class);
         $form->handleRequest($request);
         if($form->isSubmitted())

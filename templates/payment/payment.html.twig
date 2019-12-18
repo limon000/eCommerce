@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Payment{% endblock %}
-{% block stylesheets %}
 
+{% block route %}
+    Processing Payment
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
     <style>
         .StripeElement {
             box-sizing: border-box;
@@ -32,9 +37,9 @@
             background-color: #fefde5 !important;
         }
     </style>
-    {{ parent() }}
 {% endblock %}
 {% block body %}
+    <div class="container pt-5">
     <form  method="post" id="payment-form">
         <div id="card-element">
             <!-- Elements will create input elements here -->
@@ -45,6 +50,7 @@
 
         <button  class="btn btn-success">Pay</button>
     </form>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
