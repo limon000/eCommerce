@@ -34,7 +34,7 @@ class AdminArticleController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $user = $this->getUser()->getLoginName();
+        $user = $this->getUser();
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -43,8 +43,8 @@ class AdminArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setCreatedAt(new \DateTime())
-                ->setUser($this->getUser())
-                ->setUserCreated($user);
+                ->setUser($user)
+                ->setUserCreated($user->getLoginName());
 
 
             $file = $form->get('image')->getData();
