@@ -62,12 +62,11 @@ class HomeController extends AbstractController
                 'username' => $this->getUser()->getLoginName(),
             ]);
 
-            $pagination = $paginator->paginate($commande,$request->query->getInt('page',1),5);
 
         return $this->render('home/account.html.twig',[
             'client' => $client,
             'review' => $review,
-            'commandes' => $pagination,
+            'commandes' => $commande,
             'details' => $details,
         ]);
 
